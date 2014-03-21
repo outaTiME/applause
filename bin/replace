@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+var argv = require('optimist')
+  .usage('Usage: $0 [options] <match> <replacement> <path>')
+  /* .check(function (argv) {
+    if (!argv._.length) {
+      throw 'Must define at least one file or directory.';
+    }
+  }) */
+  .argv;
+
+var Replacer = require('../lib/replacer');
