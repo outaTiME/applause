@@ -68,6 +68,7 @@ describe('applause', function () {
     });
     expect = 'value';
     result = applause.replace('@@key');
+console.log('YAML ',result);    
     assert.equal(result, expect);
     done();
 

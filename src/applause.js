@@ -3,7 +3,7 @@
 var cocktail     = require('cocktail'),
     Evented      = require('cocktail-annotation-evented'),
     _            = require('lodash'),
-    plugins      = require('./plugins');
+    Pluggable    = require('./pluggable');
 
 cocktail.use(Evented);
 
@@ -25,7 +25,9 @@ cocktail.mix({
         options: null
     },
 
-    _plugins : plugins,
+    '@traits': [Pluggable],
+
+    _plugins : null,
 
     constructor: function (options) {
         var me = this,
@@ -41,6 +43,18 @@ cocktail.mix({
         });
 
         this.setOptions(opts);
+
+        this._plugins = [];
+
+        this.initializePlugins();
+    },
+
+    getPlugins: function () {
+        return this._plugins;
+    },
+
+    addPlugin: function (plugin) {
+        this._plugins.push(plugin);
     },
 
     replace : function (contents, process) {
@@ -89,33 +103,13 @@ cocktail.mix({
             });
         }
 
-        // FIXME: handler for plugin management
-        var createPluginHandler = function (context) {
-            return function (plugin) {
-                var pattern = context.pattern;
-                
-                if (plugin.match(pattern, opts) === true) {
-                    plugin.transform(pattern, opts, function (items) {
-                        if (items instanceof Error) {
-                            throw items;
-                        } else {
-                            // store transformed pattern in context
-                            context.pattern = items;
-                        }
-                    });
-                } else {
-                    // plugin doesn't apply
-                }
-            };
-        };
-
         // intercept errors
         for (var i = patterns.length - 1; i >= 0; i -= 1) {
             var context = {
                 pattern: patterns[i]
             };
             // process context with each plugin
-            plugins.forEach(createPluginHandler(context));
+            me.executePluginsInContext(context, opts);
             // update current pattern
             Array.prototype.splice.apply(patterns, [i, 1].concat(context.pattern));
         }
