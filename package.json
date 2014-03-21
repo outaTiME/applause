@@ -1,7 +1,7 @@
 {
   "name": "applause",
   "description": "Replace text patterns with a given replacement.",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "homepage": "https://github.com/outaTiME/applause",
   "author": {
     "name": "outaTiME",
@@ -25,6 +25,7 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
+    "release": "scripts/release.sh",
     "test": "grunt test"
   },
   "dependencies": {
