@@ -39,38 +39,43 @@ describe('applause', function () {
 
   });
 
-});
+  it('should read from json and replace simple key with value', function (done) {
 
-/*
-
-
-'use strict';
-
-
-
-exports['replace'] = {
-
-  main: function (test) {
-
-    var replacer;
-    var expect;
-    var result;
-
-    test.expect(3);
-
-    replacer = new Applause({
+    applause = new Applause({
       patterns: [
         {
-          match: 'key',
-          replacement: 'value'
+          json: {
+            key: 'value'
+          }
         }
       ]
     });
     expect = 'value';
-    result = replacer.replace('@@key');
-    test.equal(expect, result, 'should replace simple key with value');
+    result = applause.replace('@@key');
+    assert.equal(result, expect);
+    done();
 
-    replacer = new Applause({
+  });
+
+  it('should read from yaml and replace simple key with value', function (done) {
+
+    applause = new Applause({
+      patterns: [
+        {
+          yaml: 'key: value'
+        }
+      ]
+    });
+    expect = 'value';
+    result = applause.replace('@@key');
+    assert.equal(result, expect);
+    done();
+
+  });
+
+  it('should escape the dollar sign ($)', function (done) {
+
+    applause = new Applause({
       patterns: [
         {
           match: 'key',
@@ -79,10 +84,15 @@ exports['replace'] = {
       ]
     });
     expect = '$\'';
-    result = replacer.replace('@@key');
-    test.equal(expect, result, 'should escape the dollar sign ($)');
+    result = applause.replace('@@key');
+    assert.equal(result, expect);
+    done();
 
-    replacer = new Applause({
+  });
+
+  it('should replace "John Smith" for "Smith, John"', function (done) {
+
+    applause = new Applause({
       patterns: [
         {
           match: /(\w+)\s(\w+)/,
@@ -91,61 +101,10 @@ exports['replace'] = {
       ]
     });
     expect = 'Smith, John';
-    result = replacer.replace('John Smith');
-    test.equal(expect, result, 'should replace "John Smith" for "Smith, John"');
+    result = applause.replace('John Smith');
+    assert.equal(result, expect);
+    done();
 
-    test.done();
+  });
 
-  },
-
-  json: function (test) {
-
-    var replacer;
-    var expect;
-    var result;
-
-    test.expect(1);
-
-    replacer = new Applause({
-      patterns: [
-        {
-          json: {
-            'key': 'value'
-          }
-        }
-      ]
-    });
-    expect = 'value';
-    result = replacer.replace('@@key');
-    test.equal(expect, result, 'should read from json and replace simple key with value');
-
-    test.done();
-
-  },
-
-  yaml: function (test) {
-
-    var replacer;
-    var expect;
-    var result;
-
-    test.expect(1);
-
-    replacer = new Applause({
-      patterns: [
-        {
-          yaml: 'key: value'
-        }
-      ]
-    });
-    expect = 'value';
-    result = replacer.replace('@@key');
-    test.equal(expect, result, 'should read from yaml and replace simple key with value');
-
-    test.done();
-
-  }
-
-};
-
-*/
+});

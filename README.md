@@ -454,6 +454,7 @@ _(Coming soon)_
 
 ## Release History
 
+ * 2014-03-22   v0.2.1   More test cases.
  * 2014-03-21   v0.2.0   Project rename from `pattern-replace` to `applause` (thanks Lady Gaga). Test cases in Mocha and readme updated.
  * 2014-03-11   v0.1.2   New pattern matching for YAML object. New preserveOrder flag.
  * 2014-02-26   v0.1.1   Remove the force flag (only applies in grunt plugin).
