@@ -42,7 +42,7 @@ var options = {
     }
   ]
 };
-var applause = new Applause(options);
+var applause = Applause.create(options);
 var contents = '@@foo';
 var result = applause.replace(contents);
 console.log(result); // bar
@@ -60,15 +60,14 @@ Type: `String|RegExp`
 
 Indicates the matching expression.
 
-If matching type is `String` and `expression` attribute is `false` we use a simple variable lookup mechanism `@@string` (in any other case we use the default regexp replace logic):
+If matching type is `String` we use a simple variable lookup mechanism `@@string` (in any other case we use the default regexp replace logic):
 
 ```javascript
 {
   patterns: [
     {
       match: 'foo',
-      replacement: 'bar', // replaces "@@foo" to "bar"
-      expression: false   // simple variable lookup
+      replacement: 'bar'  // replaces "@@foo" to "bar"
     }
   ]
 }
@@ -147,7 +146,7 @@ Also supports nested objects:
 #### patterns.yaml
 Type: `String`
 
-If an attribute `yaml` found in pattern definition we flatten the object using `delimiter` concatenation and each key–value pair will be used for the replacement (simple variable lookup mechanism and no regexp support).
+If an attribute `yaml` found in pattern definition will be converted and then processed like [json attribute](#patternsjson).
 
 ```javascript
 {
@@ -159,13 +158,20 @@ If an attribute `yaml` found in pattern definition we flatten the object using `
 }
 ```
 
-#### patterns.expression
-Type: `Boolean`
-Default: `false`
+#### patterns.cson
+Type: `String`
 
-Indicates the type of matching.
+If an attribute `cson` found in pattern definition will be converted and then processed like [json attribute](#patternsjson).
 
-If detects regexp instance in `match` attribute, we assume to works with expression matcher (in any other case should be forced).
+```javascript
+{
+  patterns: [
+    {
+      cson: 'key: \'value\''
+    }
+  ]
+}
+```
 
 #### variables
 Type: `Object`
@@ -248,7 +254,7 @@ var options = {
     }
   ]
 };
-var applause = new Applause(options);
+var applause = Applause.create(options);
 var contents = fs.readFileSync('./src/manifest.appcache').toString();
 var result = applause.replace(contents);
 console.log(result); // replaced output
@@ -311,7 +317,7 @@ var options = {
     }
   ]
 };
-var applause = new Applause(options);
+var applause = Applause.create(options);
 var contents = fs.readFileSync('./src/manifest.appcache').toString();
 var result = applause.replace(contents);
 console.log(result); // replaced output
@@ -344,7 +350,7 @@ var options = {
     }
   ]
 };
-var applause = new Applause(options);
+var applause = Applause.create(options);
 var contents = fs.readFileSync('./src/index.html').toString();
 var result = applause.replace(contents);
 console.log(result); // replaced output
@@ -373,7 +379,7 @@ var options = {
     }
   ]
 };
-var applause = new Applause(options);
+var applause = Applause.create(options);
 var contents = fs.readFileSync('./src/index.html').toString();
 var result = applause.replace(contents);
 console.log(result); // replaced output
@@ -400,7 +406,7 @@ var options = {
     }
   ]
 };
-var applause = new Applause(options);
+var applause = Applause.create(options);
 var contents = fs.readFileSync('./username.txt').toString();
 var result = applause.replace(contents);
 console.log(result); // replaced output
@@ -408,15 +414,13 @@ console.log(result); // replaced output
 
 #### Lookup for `foo` instead of `@@foo`
 
-The `String` matching type or `expression` in `false` generates a simple variable lookup mechanism `@@string`, to skip this mode use one of the below rules ... make your choice:
-
 Node:
 
 ```js
 var Applause = require('applause');
 
 // option 1 (explicitly using an regexp)
-var applause_op1 = new Applause({
+var applause_op1 = Applause.create({
   patterns: [
     {
       match: /foo/g,
@@ -426,7 +430,7 @@ var applause_op1 = new Applause({
 });
 
 // option 2 (easy way)
-var applause_op2 = new Applause({
+var applause_op2 = Applause.create({
   patterns: [
     {
       match: 'foo',
@@ -437,7 +441,7 @@ var applause_op2 = new Applause({
 });
 
 // option 3 (old way)
-var applause_op3 = new Applause({
+var applause_op3 = Applause.create({
   patterns: [
     {
       match: 'foo',
@@ -454,7 +458,7 @@ _(Coming soon)_
 
 ## Release History
 
- * 2014-03-22   v0.2.1   More test cases.
+ * 2014-03-22   v0.3.0   Performance improvements. Expression flag removed. New pattern matching for CSON object. More test cases, readme updated and code cleanup.
  * 2014-03-21   v0.2.0   Project rename from `pattern-replace` to `applause` (thanks Lady Gaga). Test cases in Mocha and readme updated.
  * 2014-03-11   v0.1.2   New pattern matching for YAML object. New preserveOrder flag.
  * 2014-02-26   v0.1.1   Remove the force flag (only applies in grunt plugin).

@@ -9,22 +9,22 @@
 
 // dependencies
 
-var yaml = require('js-yaml');
+var CSON = require('cson');
 
 // expose
 
 module.exports = {
-  name: 'yaml',
+  name: 'cson',
   priority: 10,
   match: function (pattern, opts) {
-    var yaml = pattern.yaml;
-    var match = typeof yaml !== 'undefined';
+    var cson = pattern.cson;
+    var match = typeof cson !== 'undefined';
     return match;
   },
   transform: function (pattern, opts, done) {
     try {
       done({
-        json: yaml.safeLoad(pattern.yaml)
+        json: CSON.parseSync(pattern.cson)
       });
     } catch (e) {
       done(e);

@@ -30,7 +30,8 @@
   },
   "dependencies": {
     "lodash": "~2.4.1",
-    "js-yaml": "~3.0.1"
+    "js-yaml": "~3.0.1",
+    "cson": "~1.4.5"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
