@@ -255,7 +255,7 @@ var options = {
   ]
 };
 var applause = Applause.create(options);
-var contents = fs.readFileSync('./src/manifest.appcache').toString();
+var contents = fs.readFileSync('./src/manifest.appcache', 'utf8');
 var result = applause.replace(contents);
 console.log(result); // replaced output
 ```
@@ -304,12 +304,13 @@ Node:
 
 ```js
 var fs = require('fs');
+var pkg = require('./package.json');
 var Applause = require('applause');
 var options = {
   patterns: [
     {
       match: 'version',
-      replacement: '0.1.0'
+      replacement: pkg.version
     },
     {
       match: 'timestamp',
@@ -318,10 +319,10 @@ var options = {
   ]
 };
 var applause = Applause.create(options);
-var contents = fs.readFileSync('./src/manifest.appcache').toString();
+var contents = fs.readFileSync('./src/manifest.appcache', 'utf8');
 var result = applause.replace(contents);
 console.log(result); // replaced output
-contents = fs.readFileSync('./src/humans.txt').toString();
+contents = fs.readFileSync('./src/humans.txt', 'utf8');
 result = applause.replace(contents);
 console.log(result); // replaced output
 ```
@@ -351,7 +352,7 @@ var options = {
   ]
 };
 var applause = Applause.create(options);
-var contents = fs.readFileSync('./src/index.html').toString();
+var contents = fs.readFileSync('./src/index.html', 'utf8');
 var result = applause.replace(contents);
 console.log(result); // replaced output
 ```
@@ -375,12 +376,12 @@ var options = {
   patterns: [
     {
       match: 'include',
-      replacement: fs.readFileSync('./includes/content.html').toString()
+      replacement: fs.readFileSync('./includes/content.html', 'utf8')
     }
   ]
 };
 var applause = Applause.create(options);
-var contents = fs.readFileSync('./src/index.html').toString();
+var contents = fs.readFileSync('./src/index.html', 'utf8');
 var result = applause.replace(contents);
 console.log(result); // replaced output
 ```
@@ -407,7 +408,7 @@ var options = {
   ]
 };
 var applause = Applause.create(options);
-var contents = fs.readFileSync('./username.txt').toString();
+var contents = fs.readFileSync('./username.txt', 'utf8');
 var result = applause.replace(contents);
 console.log(result); // replaced output
 ```
