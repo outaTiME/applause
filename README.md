@@ -48,7 +48,7 @@ var result = applause.replace(contents);
 console.log(result); // bar
 ```
 
-### Replacer Options
+### Applause Options
 
 #### patterns
 Type: `Array`
@@ -459,6 +459,7 @@ _(Coming soon)_
 
 ## Release History
 
+ * 2014-03-23   v0.3.1   Readme updated.
  * 2014-03-22   v0.3.0   Performance improvements. Expression flag removed. New pattern matching for CSON object. More test cases, readme updated and code cleanup.
  * 2014-03-21   v0.2.0   Project rename from `pattern-replace` to `applause` (thanks Lady Gaga). Test cases in Mocha and readme updated.
  * 2014-03-11   v0.1.2   New pattern matching for YAML object. New preserveOrder flag.
