@@ -9,7 +9,8 @@
 
 // dependencies
 
-var yaml = require('js-yaml');
+var _ = require('lodash');
+var YAML = require('js-yaml');
 
 // expose
 
@@ -22,9 +23,17 @@ module.exports = {
     return match;
   },
   transform: function (pattern, opts, done) {
+    var yaml = pattern.yaml;
+    // function support
+    if (_.isFunction(yaml)) {
+      yaml.call(this, function (result) {
+        // override yaml function with value
+        yaml = result;
+      });
+    }
     try {
       done({
-        json: yaml.safeLoad(pattern.yaml)
+        json: YAML.safeLoad(yaml)
       });
     } catch (e) {
       done(e);

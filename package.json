@@ -1,7 +1,7 @@
 {
   "name": "applause",
   "description": "Replace text patterns with a given replacement.",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "homepage": "https://github.com/outaTiME/applause",
   "author": {
     "name": "outaTiME",
@@ -35,8 +35,8 @@
   },
   "devDependencies": {
     "grunt": "~0.4.2",
-    "grunt-contrib-jshint": "~0.8.0",
-    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-watch": "~0.6.0",
     "grunt-mocha-test": "~0.10.0"
   },
   "keywords": [

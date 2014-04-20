@@ -48,6 +48,13 @@ module.exports = {
   transform: function (pattern, opts, done) {
     var delimiter = opts.delimiter;
     var json = pattern.json;
+    // function support
+    if (_.isFunction(json)) {
+      json.call(this, function (result) {
+        // override json function with value
+        json = result;
+      });
+    }
     if (_.isPlainObject(json)) {
       // replace json with flatten data
       done(flatten(json, delimiter));

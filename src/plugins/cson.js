@@ -9,6 +9,7 @@
 
 // dependencies
 
+var _ = require('lodash');
 var CSON = require('cson');
 
 // expose
@@ -22,9 +23,17 @@ module.exports = {
     return match;
   },
   transform: function (pattern, opts, done) {
+    var cson = pattern.cson;
+    // function support
+    if (_.isFunction(cson)) {
+      cson.call(this, function (result) {
+        // override cson function with value
+        cson = result;
+      });
+    }
     try {
       done({
-        json: CSON.parseSync(pattern.cson)
+        json: CSON.parseSync(cson)
       });
     } catch (e) {
       done(e);
