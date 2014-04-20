@@ -51,6 +51,7 @@
     "regexp",
     "json",
     "yaml",
+    "cson",
     "flatten"
   ],
   "main": "src/applause.js",
