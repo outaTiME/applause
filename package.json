@@ -1,7 +1,7 @@
 {
   "name": "applause",
   "description": "Replace text patterns with a given replacement.",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "homepage": "https://github.com/outaTiME/applause",
   "author": {
     "name": "outaTiME",
@@ -51,6 +51,7 @@
     "regexp",
     "json",
     "yaml",
+    "cson",
     "flatten"
   ],
   "main": "src/applause.js",

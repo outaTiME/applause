@@ -143,6 +143,22 @@ Also supports nested objects:
 }
 ```
 
+For deferred invocations is possible to define functions:
+
+```javascript
+{
+  patterns: [
+    {
+      json: function (done) {
+        done({
+          key: 'value'
+        });
+      }
+    }
+  ]
+}
+```
+
 #### patterns.yaml
 Type: `String`
 
@@ -153,6 +169,20 @@ If an attribute `yaml` found in pattern definition will be converted and then pr
   patterns: [
     {
       yaml: 'key: value'  // replaces "@@key" to "value"
+    }
+  ]
+}
+```
+
+For deferred invocations is possible to define functions:
+
+```javascript
+{
+  patterns: [
+    {
+      yaml: function (done) {
+        done('key: value');
+      }
     }
   ]
 }
@@ -173,10 +203,24 @@ If an attribute `cson` found in pattern definition will be converted and then pr
 }
 ```
 
+For deferred invocations is possible to define functions:
+
+```javascript
+{
+  patterns: [
+    {
+      cson: function (done) {
+        done('key: \'value\'');
+      }
+    }
+  ]
+}
+```
+
 #### variables
 Type: `Object`
 
-This is the old way to define patterns using plain object (simple variable lookup mechanism and no regexp support), you can still using but for more control you should use the new `patterns` way.
+This is the old way to define patterns using plain object (simple variable lookup mechanism and no regexp support). You can still use this but for more control you should use the new `patterns` way.
 
 ```javascript
 {
@@ -459,7 +503,8 @@ _(Coming soon)_
 
 ## Release History
 
- * 2014-06-10   v0.3.2   Remove node v.8.0 support and third party dependencies updated.
+ * 2014-06-10   v0.3.3   Remove node v.8.0 support and third party dependencies updated.
+ * 2014-04-18   v0.3.2   JSON / YAML / CSON as function supported. Readme updated (thanks [@milanlandaverde](https://github.com/milanlandaverde)).
  * 2014-03-23   v0.3.1   Readme updated.
  * 2014-03-22   v0.3.0   Performance improvements. Expression flag removed. New pattern matching for CSON object. More test cases, readme updated and code cleanup.
  * 2014-03-21   v0.2.0   Project rename from `pattern-replace` to `applause` (thanks Lady Gaga). Test cases in Mocha and readme updated.

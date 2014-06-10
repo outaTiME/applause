@@ -503,12 +503,50 @@ describe('plugins', function () {
 
   });
 
+  it('should read from deferrer json and replace simple key with value', function (done) {
+
+    applause = Applause.create({
+      patterns: [
+        {
+          json: function (done) {
+            done({
+              key: 'value'
+            });
+          }
+        }
+      ]
+    });
+    expect = 'value';
+    result = applause.replace('@@key');
+    assert.equal(result, expect);
+    done();
+
+  });
+
   it('should read from yaml and replace simple key with value', function (done) {
 
     applause = Applause.create({
       patterns: [
         {
           yaml: 'key: value'
+        }
+      ]
+    });
+    expect = 'value';
+    result = applause.replace('@@key');
+    assert.equal(result, expect);
+    done();
+
+  });
+
+  it('should read from deferrer yaml and replace simple key with value', function (done) {
+
+    applause = Applause.create({
+      patterns: [
+        {
+          yaml: function (done) {
+            done('key: value');
+          }
         }
       ]
     });
@@ -534,4 +572,23 @@ describe('plugins', function () {
     done();
 
   });
+
+  it('should read from deferrer cson and replace simple key with value', function (done) {
+
+    applause = Applause.create({
+      patterns: [
+        {
+          cson: function (done) {
+            done('key: \'value\'');
+          }
+        }
+      ]
+    });
+    expect = 'value';
+    result = applause.replace('@@key');
+    assert.equal(result, expect);
+    done();
+
+  });
+
 });
