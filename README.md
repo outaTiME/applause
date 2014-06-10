@@ -459,6 +459,7 @@ _(Coming soon)_
 
 ## Release History
 
+ * 2014-06-10   v0.3.2   Remove node v.8.0 support and third party dependencies updated.
  * 2014-03-23   v0.3.1   Readme updated.
  * 2014-03-22   v0.3.0   Performance improvements. Expression flag removed. New pattern matching for CSON object. More test cases, readme updated and code cleanup.
  * 2014-03-21   v0.2.0   Project rename from `pattern-replace` to `applause` (thanks Lady Gaga). Test cases in Mocha and readme updated.
