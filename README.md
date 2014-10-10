@@ -503,6 +503,7 @@ _(Coming soon)_
 
 ## Release History
 
+ * 2014-10-10   v0.3.4   Escape regexp when matching type is `String`.
  * 2014-06-10   v0.3.3   Remove node v.8.0 support and third party dependencies updated.
  * 2014-04-18   v0.3.2   JSON / YAML / CSON as function supported. Readme updated (thanks [@milanlandaverde](https://github.com/milanlandaverde)).
  * 2014-03-23   v0.3.1   Readme updated.

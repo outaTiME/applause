@@ -477,6 +477,25 @@ describe('core', function () {
 
   });
 
+
+  it('should escape string to create an regexp', function (done) {
+
+    applause = Applause.create({
+      patterns: [
+        {
+          match: '(../fonts/',
+          replacement: '../font/'
+        }
+      ],
+      usePrefix: false
+    });
+    expect = '../font/';
+    result = applause.replace('(../fonts/');
+    assert.equal(result, expect);
+    done();
+
+  });
+
 });
 
 describe('plugins', function () {

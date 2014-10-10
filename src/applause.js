@@ -32,6 +32,12 @@ var createPluginHandler = function (context, opts) {
   };
 };
 
+// took from MDN
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+var escapeRegExp = function (string) {
+  return string.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1");
+};
+
 var normalize = function (applause, patterns) {
   var opts = applause.options;
   return _.transform(patterns, function (result, pattern) {
@@ -46,7 +52,7 @@ var normalize = function (applause, patterns) {
           expression = true;
         } else if (_.isString(match)) {
           if (match.length > 0) {
-            match = new RegExp(opts.prefix + match, 'g');
+            match = new RegExp(opts.prefix + escapeRegExp(match), 'g');
           } else {
             // empty match
             return;
