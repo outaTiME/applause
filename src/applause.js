@@ -160,7 +160,9 @@ Applause.prototype.replace = function (contents, process) {
     var replaced = contents.replace(match, replacement);
     // indicate a replacement occurred
     if (contents !== replaced) {
-      this.options.patterns[i].found = true;
+      if (((this.options || {}).patterns || {})[i]) {
+        this.options.patterns[i].found = true;
+      }
       contents = replaced;
     }
   }.bind(this));
