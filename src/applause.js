@@ -146,7 +146,7 @@ Applause.prototype.replace = function (contents, process) {
   // by default file not updated
   var updated = false;
   // iterate over each pattern and make replacement
-  patterns.forEach(function (pattern) {
+  patterns.forEach(function (pattern, i) {
     var match = pattern.match;
     var replacement = pattern.replacement;
     // wrap replacement function to add process arguments
@@ -157,8 +157,13 @@ Applause.prototype.replace = function (contents, process) {
       };
     }
     updated = updated || contents.match(match);
-    contents = contents.replace(match, replacement);
-  });
+    var replaced = contents.replace(match, replacement);
+    // indicate a replacement occurred
+    if (contents !== replaced) {
+      this.options.patterns[i].found = true;
+      contents = replaced;
+    }
+  }.bind(this));
   if (!updated) {
     return false;
   }
