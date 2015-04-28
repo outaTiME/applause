@@ -2,7 +2,7 @@
 /*
  * applause
  *
- * Copyright (c) 2014 outaTiME
+ * Copyright (c) 2015 outaTiME
  * Licensed under the MIT license.
  * https://github.com/outaTiME/applause/blob/master/LICENSE-MIT
  */
@@ -10,7 +10,7 @@
 // dependencies
 
 var _ = require('lodash');
-var CSON = require('cson');
+var CSON = require('cson-parser');
 
 // expose
 
@@ -33,7 +33,7 @@ module.exports = {
     }
     try {
       done({
-        json: CSON.parseSync(cson)
+        json: CSON.parse(cson)
       });
     } catch (e) {
       done(e);

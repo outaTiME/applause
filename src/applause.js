@@ -2,7 +2,7 @@
 /*
  * applause
  *
- * Copyright (c) 2014 outaTiME
+ * Copyright (c) 2015 outaTiME
  * Licensed under the MIT license.
  * https://github.com/outaTiME/applause/blob/master/LICENSE-MIT
  */
@@ -44,7 +44,7 @@ var normalize = function (applause, patterns) {
     // filter empty patterns
     if (!_.isEmpty(pattern)) {
       var match = pattern.match;
-      var replacement = pattern.replacement;
+      var replacement = pattern.replacement || pattern.replace;
       var expression = false;
       // match check
       if (match !== undefined && match !== null) {

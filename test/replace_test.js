@@ -2,7 +2,7 @@
 /*
  * applause
  *
- * Copyright (c) 2014 outaTiME
+ * Copyright (c) 2015 outaTiME
  * Licensed under the MIT license.
  * https://github.com/outaTiME/applause/blob/master/LICENSE-MIT
  */
@@ -46,6 +46,23 @@ describe('core', function () {
         {
           match: 'key',
           replacement: 'value'
+        }
+      ]
+    });
+    expect = 'value';
+    result = applause.replace('@@key');
+    assert.equal(result, expect);
+    done();
+
+  });
+
+  it('should replace simple key with value (replacement alternative)', function (done) {
+
+    applause = Applause.create({
+      patterns: [
+        {
+          match: 'key',
+          replace: 'value'
         }
       ]
     });
@@ -406,7 +423,7 @@ describe('core', function () {
 
   });
 
-  it('should replace simple key with value and not preserve prefix (function in replacement)', function (done) {
+  it('should replace simple key with value and not preserve prefix (function as replacement)', function (done) {
 
     applause = Applause.create({
       patterns: [
@@ -426,7 +443,7 @@ describe('core', function () {
 
   });
 
-  it('should replace simple key with value and not preserve prefix (regexp in match)', function (done) {
+  it('should replace simple key with value and not preserve prefix (regexp as match)', function (done) {
 
     applause = Applause.create({
       patterns: [
@@ -491,6 +508,66 @@ describe('core', function () {
     });
     expect = '../font/';
     result = applause.replace('(../fonts/');
+    assert.equal(result, expect);
+    done();
+
+  });
+
+  it('should escape special characters in replacement', function (done) {
+
+    applause = Applause.create({
+      patterns: [
+        {
+          match: '$var',
+          replacement: '$var-value'
+        },
+        {
+          match: '@var',
+          replacement: '@var-value'
+        }
+      ],
+      usePrefix: false
+    });
+    expect = [
+      '$var-value',
+      '@var-value',
+    ].join();
+    result = applause.replace([
+      '$var',
+      '@var',
+      ].join());
+    assert.equal(result, expect);
+    done();
+
+  });
+
+  it('should escape special characters in replacement (function as replacement)', function (done) {
+
+    applause = Applause.create({
+      patterns: [
+        {
+          match: '$var-fn',
+          replacement: function () {
+            return '$var-fn-value';
+          }
+        },
+        {
+          match: '@var-fn',
+          replacement: function () {
+            return '@var-fn-value';
+          }
+        }
+      ],
+      usePrefix: false
+    });
+    expect = [
+      '$var-fn-value',
+      '@var-fn-value'
+    ].join();
+    result = applause.replace([
+      '$var-fn',
+      '@var-fn',
+      ].join());
     assert.equal(result, expect);
     done();
 
