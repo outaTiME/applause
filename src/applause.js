@@ -158,7 +158,7 @@ var Applause = function (opts) {
     preservePrefix: false,
     delimiter: '.',
     preserveOrder: false,
-    includeDetails: false
+    detail: false
   });
 };
 
@@ -196,10 +196,10 @@ Applause.prototype.replace = function (contents, process) {
   if (details.length === 0) {
     contents = false;
   }
-  if (opts.includeDetails === true) {
+  if (opts.detail === true) {
     return {
-      result: contents,
-      details: details
+      content: contents,
+      detail: details
     }
   }
   return contents;

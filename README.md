@@ -266,11 +266,11 @@ Default: `false`
 
 If set to `true`, we preserve the patterns definition order, otherwise these will be sorted (in ascending order) to prevent replacement issues like `head` / `header` (typo regexps will be resolved at last).
 
-#### includeDetails
+#### detail
 Type: `Boolean`
 Default: `false`
 
-If set to `true`, we return a object response with the result and details of replace operations.
+If set to `true`, return a object response with the `content` and `detail` of replace operation.
 
 ### Usage Examples
 

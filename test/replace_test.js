@@ -56,7 +56,7 @@ describe('core', function () {
 
   });
 
-  it('should replace simple key with value and return the details', function (done) {
+  it('should replace simple key with value and return the detail', function (done) {
 
     applause = Applause.create({
       patterns: [
@@ -65,12 +65,12 @@ describe('core', function () {
           replacement: 'value'
         }
       ],
-      includeDetails: true
+      detail: true
     });
     expect = 'value';
     result = applause.replace('@@key');
-    assert.equal(result.result, expect);
-    assert.equal(result.details.length, 1);
+    assert.equal(result.content, expect);
+    assert.equal(result.detail.length, 1);
     done();
 
   });
@@ -150,7 +150,7 @@ describe('core', function () {
 
   });
 
-  it('should replace multiple key-value pairs and return the details', function (done) {
+  it('should replace multiple key-value pairs and return the detail', function (done) {
 
     applause = Applause.create({
       patterns: [
@@ -163,12 +163,12 @@ describe('core', function () {
           replacement: 'value-2'
         }
       ],
-      includeDetails: true
+      detail: true
     });
     expect = 'value-1,value-2';
     result = applause.replace('@@key-1,@@key-2');
-    assert.equal(result.result, expect);
-    assert.equal(result.details.length, 2);
+    assert.equal(result.content, expect);
+    assert.equal(result.detail.length, 2);
     done();
 
   });
