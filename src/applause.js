@@ -45,6 +45,7 @@ var normalize = function (applause, patterns) {
     if (!_.isEmpty(pattern)) {
       var match = pattern.match;
       var replacement = pattern.replacement || pattern.replace;
+      var source = pattern.source;
       var expression = false;
       // match check
       if (match !== undefined && match !== null) {
@@ -83,7 +84,8 @@ var normalize = function (applause, patterns) {
       }
       return result.push({
         match: match,
-        replacement: replacement
+        replacement: replacement,
+        source: source
       });
     }
   });
@@ -92,7 +94,13 @@ var normalize = function (applause, patterns) {
 var getPatterns = function (applause) {
   var opts = applause.options;
   // shallow patterns
-  var patterns = _.clone(opts.patterns);
+  var patterns = _.chain(opts.patterns)
+    .clone()
+    .compact()
+    .filter(function (pattern) {
+      return !_.isEmpty(pattern);
+    })
+    .value();
   // backward compatibility
   var variables = opts.variables;
   if (!_.isEmpty(variables)) {
@@ -103,12 +111,25 @@ var getPatterns = function (applause) {
   // intercept errors
   for (var i = patterns.length - 1; i >= 0; i -= 1) {
     var context = {
+      // shared variable
       pattern: patterns[i]
     };
     // process context with each plugin
     plugins.forEach(createPluginHandler(context, opts));
-    // update current pattern
-    Array.prototype.splice.apply(patterns, [i, 1].concat(context.pattern));
+    // pattern updated by plugin
+    var pattern = context.pattern;
+    if (!_.isArray(pattern)) {
+      // convert to array
+      pattern = [pattern];
+    }
+    var new_pattern = _.map(pattern, function (pattern) {
+      return _.extend({}, pattern, {
+        // link tranformed source with original pattern definition
+        source: patterns[i]
+      });
+    });
+    // attach index
+    Array.prototype.splice.apply(patterns, [i, 1].concat(new_pattern));
   }
   if (opts.preserveOrder !== true) {
     // only sort non regex patterns (prevents replace issues like head, header)
@@ -136,15 +157,19 @@ var Applause = function (opts) {
     usePrefix: true,
     preservePrefix: false,
     delimiter: '.',
-    preserveOrder: false
+    preserveOrder: false,
+    includeDetails: false
   });
 };
 
 Applause.prototype.replace = function (contents, process) {
+  var opts = this.options;
+  // prevent null
+  contents = contents || '';
   // prepare patterns
   var patterns = getPatterns(this);
-  // by default file not updated
-  var updated = false;
+  // match details
+  var details = [];
   // iterate over each pattern and make replacement
   patterns.forEach(function (pattern, i) {
     var match = pattern.match;
@@ -156,18 +181,26 @@ Applause.prototype.replace = function (contents, process) {
         return pattern.replacement.apply(this, args.concat(process || []));
       };
     }
-    updated = updated || contents.match(match);
-    var replaced = contents.replace(match, replacement);
-    // indicate a replacement occurred
-    if (contents !== replaced) {
-      if (((this.options || {}).patterns || {})[i]) {
-        this.options.patterns[i].found = true;
-      }
-      contents = replaced;
+    var count = (contents.match(match) || []).length;
+    if (count > 0) {
+      // update contents
+      contents = contents.replace(match, replacement);
+      // save detail data
+      details.push({
+        pattern: pattern,
+        source: pattern.source,
+        count: count
+      })
     }
-  }.bind(this));
-  if (!updated) {
-    return false;
+  });
+  if (details.length === 0) {
+    contents = false;
+  }
+  if (opts.includeDetails === true) {
+    return {
+      result: contents,
+      details: details
+    }
   }
   return contents;
 };
@@ -176,6 +209,10 @@ Applause.prototype.replace = function (contents, process) {
 
 Applause.create = function (opts) {
   return new Applause(opts);
+};
+
+Applause.registerPlugin = function (opts) {
+  // pass
 };
 
 // expose

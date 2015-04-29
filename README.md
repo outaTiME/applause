@@ -266,6 +266,12 @@ Default: `false`
 
 If set to `true`, we preserve the patterns definition order, otherwise these will be sorted (in ascending order) to prevent replacement issues like `head` / `header` (typo regexps will be resolved at last).
 
+#### includeDetails
+Type: `Boolean`
+Default: `false`
+
+If set to `true`, we return a object response with the result and details of replace operations.
+
 ### Usage Examples
 
 #### Basic
