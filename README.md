@@ -73,7 +73,7 @@ If matching type is `String` we use a simple variable lookup mechanism `@@string
 }
 ```
 
-#### patterns.replacement
+#### patterns.replacement or patterns.replace
 Type: `String|Function|Object`
 
 Indicates the replacement for match, for more information about replacement check out the [String.replace].
@@ -503,13 +503,9 @@ var applause_op3 = Applause.create({
 });
 ```
 
-## Command Line
-
-_(Coming soon)_
-
 ## Release History
 
- * 2015-05-01   v0.4.0   New test cases, parse CSON using [@groupon](https://github.com/groupon/cson-parser) and third party dependencies updated.
+ * 2015-05-01   v0.4.0   New test cases, parse CSON using [@groupon](https://github.com/groupon/cson-parser), replace alias for replacement, third party dependencies updated.
  * 2014-10-10   v0.3.4   Escape regexp when matching type is `String`.
  * 2014-06-10   v0.3.3   Remove node v.8.0 support and third party dependencies updated.
  * 2014-04-18   v0.3.2   JSON / YAML / CSON as function supported. Readme updated (thanks [@milanlandaverde](https://github.com/milanlandaverde)).

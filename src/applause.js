@@ -12,26 +12,6 @@
 var _ = require('lodash');
 var plugins = require('./plugins');
 
-// private
-
-var createPluginHandler = function (context, opts) {
-  return function (plugin) {
-    var pattern = context.pattern;
-    if (plugin.match(pattern, opts) === true) {
-      plugin.transform(pattern, opts, function (items) {
-        if (items instanceof Error) {
-          throw items;
-        } else {
-          // store transformed pattern in context
-          context.pattern = items;
-        }
-      });
-    } else {
-      // plugin doesn't apply
-    }
-  };
-};
-
 // took from MDN
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 var escapeRegExp = function (string) {
@@ -42,52 +22,51 @@ var normalize = function (applause, patterns) {
   var opts = applause.options;
   return _.transform(patterns, function (result, pattern) {
     // filter empty patterns
-    if (!_.isEmpty(pattern)) {
-      var match = pattern.match;
-      var replacement = pattern.replacement || pattern.replace;
-      var source = pattern.source;
-      var expression = false;
-      // match check
-      if (match !== undefined && match !== null) {
-        if (_.isRegExp(match)) {
-          expression = true;
-        } else if (_.isString(match)) {
-          if (match.length > 0) {
-            match = new RegExp(opts.prefix + escapeRegExp(match), 'g');
-          } else {
-            // empty match
-            return;
-          }
+    var match = pattern.match;
+    // support replace flag too
+    var replacement = pattern.replacement || pattern.replace;
+    var source = pattern.source;
+    var expression = false;
+    // match check
+    if (match !== undefined && match !== null) {
+      if (_.isRegExp(match)) {
+        expression = true;
+      } else if (_.isString(match)) {
+        if (match.length > 0) {
+          match = new RegExp(opts.prefix + escapeRegExp(match), 'g');
         } else {
-          throw new Error('Unsupported match type (RegExp or String expected).');
+          // empty match
+          return;
         }
       } else {
-        throw new Error('Match attribute expected in pattern definition.');
+        throw new Error('Unsupported match type (RegExp or String expected).');
       }
-      // replacement check
-      if (replacement !== undefined && replacement !== null) {
-        if (!_.isFunction(replacement)) {
-          if (!_.isString(replacement)) {
-            // transform object to string
-            replacement = JSON.stringify(replacement);
-          } else {
-            // easy way
-            if (expression === false && opts.preservePrefix === true) {
-              replacement = opts.prefix + replacement;
-            }
-          }
-        } else {
-          // replace using function return value
-        }
-      } else {
-        throw new Error('Replacement attribute expected in pattern definition.');
-      }
-      return result.push({
-        match: match,
-        replacement: replacement,
-        source: source
-      });
+    } else {
+      throw new Error('Match attribute expected in pattern definition.');
     }
+    // replacement check
+    if (replacement !== undefined && replacement !== null) {
+      if (!_.isFunction(replacement)) {
+        if (!_.isString(replacement)) {
+          // transform object to string
+          replacement = JSON.stringify(replacement);
+        } else {
+          // easy way
+          if (expression === false && opts.preservePrefix === true) {
+            replacement = opts.prefix + replacement;
+          }
+        }
+      } else {
+        // replace using function return value
+      }
+    } else {
+      throw new Error('Replacement attribute expected in pattern definition.');
+    }
+    return result.push({
+      match: match,
+      replacement: replacement,
+      source: source
+    });
   });
 };
 
@@ -108,28 +87,34 @@ var getPatterns = function (applause) {
       json: variables
     });
   }
-  // intercept errors
+  // process
   for (var i = patterns.length - 1; i >= 0; i -= 1) {
-    var context = {
-      // shared variable
-      pattern: patterns[i]
-    };
-    // process context with each plugin
-    plugins.forEach(createPluginHandler(context, opts));
-    // pattern updated by plugin
-    var pattern = context.pattern;
+    var pattern = patterns[i];
+    // plugins
+    plugins.forEach(function (plugin) {
+      if (plugin.match(pattern, opts) === true) {
+        plugin.transform(pattern, opts, function (items) {
+          if (items instanceof Error) {
+            throw items;
+          } else {
+            // store transformed pattern in context
+            pattern = items;
+          }
+        });
+      } else {
+        // plugin doesn't apply
+      }
+    });
+    // convert to array
     if (!_.isArray(pattern)) {
-      // convert to array
       pattern = [pattern];
     }
-    var new_pattern = _.map(pattern, function (pattern) {
-      return _.extend({}, pattern, {
-        // link tranformed source with original pattern definition
-        source: patterns[i]
-      });
+    // link with pattern with original source
+    pattern.forEach(function (pattern) {
+      pattern.source = patterns[i];
     });
     // attach index
-    Array.prototype.splice.apply(patterns, [i, 1].concat(new_pattern));
+    Array.prototype.splice.apply(patterns, [i, 1].concat(pattern));
   }
   if (opts.preserveOrder !== true) {
     // only sort non regex patterns (prevents replace issues like head, header)
@@ -162,14 +147,14 @@ var Applause = function (opts) {
   });
 };
 
-Applause.prototype.replace = function (contents, process) {
+Applause.prototype.replace = function (content, process) {
   var opts = this.options;
   // prevent null
-  contents = contents || '';
+  content = content || '';
   // prepare patterns
   var patterns = getPatterns(this);
-  // match details
-  var details = [];
+  var detail = [];
+  var total_count = 0;
   // iterate over each pattern and make replacement
   patterns.forEach(function (pattern, i) {
     var match = pattern.match;
@@ -181,38 +166,36 @@ Applause.prototype.replace = function (contents, process) {
         return pattern.replacement.apply(this, args.concat(process || []));
       };
     }
-    var count = (contents.match(match) || []).length;
+    var count = (content.match(match) || []).length;
     if (count > 0) {
-      // update contents
-      contents = contents.replace(match, replacement);
+      // update content
+      content = content.replace(match, replacement);
       // save detail data
-      details.push({
-        pattern: pattern,
+      detail.push({
+        // pattern: pattern,
         source: pattern.source,
         count: count
-      })
+      });
+      total_count += count;
     }
   });
-  if (details.length === 0) {
-    contents = false;
+  if (detail.length === 0) {
+    content = false;
   }
   if (opts.detail === true) {
     return {
-      content: contents,
-      detail: details
+      content: content,
+      detail: detail,
+      count: total_count
     }
   }
-  return contents;
+  return content;
 };
 
 // static
 
 Applause.create = function (opts) {
   return new Applause(opts);
-};
-
-Applause.registerPlugin = function (opts) {
-  // pass
 };
 
 // expose
