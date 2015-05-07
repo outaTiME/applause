@@ -24,7 +24,10 @@ var normalize = function (applause, patterns) {
     // filter empty patterns
     var match = pattern.match;
     // support replace flag too
-    var replacement = pattern.replacement || pattern.replace;
+    var replacement = pattern.replacement;
+    if (replacement === undefined || replacement === null) {
+      replacement = pattern.replace;
+    }
     var source = pattern.source;
     var expression = false;
     // match check
@@ -80,6 +83,7 @@ var getPatterns = function (applause) {
       return !_.isEmpty(pattern);
     })
     .value();
+
   // backward compatibility
   var variables = opts.variables;
   if (!_.isEmpty(variables)) {

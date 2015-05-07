@@ -56,6 +56,23 @@ describe('core', function () {
 
   });
 
+  it('should replace simple key with empty value', function (done) {
+
+    applause = Applause.create({
+      patterns: [
+        {
+          match: 'key',
+          replacement: ''
+        }
+      ]
+    });
+    expect = '';
+    result = applause.replace('@@key');
+    assert.equal(result, expect);
+    done();
+
+  });
+
   it('should replace simple key with value and return the detail', function (done) {
 
     applause = Applause.create({
