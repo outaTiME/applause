@@ -1,4 +1,3 @@
-
 /*
  * applause
  *
@@ -8,7 +7,6 @@
  */
 
 // dependencies
-
 var _ = require('lodash');
 var plugins = require('./plugins');
 
@@ -83,7 +81,6 @@ var getPatterns = function (applause) {
       return !_.isEmpty(pattern);
     })
     .value();
-
   // backward compatibility
   var variables = opts.variables;
   if (!_.isEmpty(variables)) {
@@ -142,7 +139,7 @@ var getPatterns = function (applause) {
 var Applause = function (opts) {
   this.options = _.defaults(opts, {
     patterns: [],
-    prefix: opts.usePrefix === false ? '': '@@',
+    prefix: opts.usePrefix === false ? '' : '@@',
     usePrefix: true,
     preservePrefix: false,
     delimiter: '.',
@@ -176,7 +173,6 @@ Applause.prototype.replace = function (content, process) {
       content = content.replace(match, replacement);
       // save detail data
       detail.push({
-        // pattern: pattern,
         source: pattern.source,
         count: count
       });
@@ -191,17 +187,15 @@ Applause.prototype.replace = function (content, process) {
       content: content,
       detail: detail,
       count: total_count
-    }
+    };
   }
   return content;
 };
 
 // static
-
 Applause.create = function (opts) {
   return new Applause(opts);
 };
 
 // expose
-
 module.exports = Applause;

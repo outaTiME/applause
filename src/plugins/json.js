@@ -1,4 +1,3 @@
-
 /*
  * applause
  *
@@ -8,20 +7,26 @@
  */
 
 // dependencies
-
 var _ = require('lodash');
 
 // private
-
 var flatten = function (json, delimiter) {
   var result = [];
+  var createFn = function (match, replacement) {
+    // prevent replace issues with $$, $&, $`, $', $n or $nn
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter
+    return function () {
+      return replacement;
+    };
+  };
   var recurse = function (cur, prop) {
     for (var key in cur) {
       if (cur.hasOwnProperty(key)) {
         var item = cur[key];
+        var match = prop ? prop + delimiter + key : key;
         result.push({
-          match: prop ? prop + delimiter + key : key,
-          replacement: item,
+          match: match,
+          replacement: createFn(match, item),
           expression: false
         });
         // deep scan
@@ -36,7 +41,6 @@ var flatten = function (json, delimiter) {
 };
 
 // expose
-
 module.exports = {
   name: 'json',
   priority: 20,

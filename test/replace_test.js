@@ -1,4 +1,3 @@
-
 /*
  * applause
  *
@@ -10,34 +9,15 @@
 'use strict';
 
 // dependencies
-
 var assert = require('assert');
 var Applause = require('../src/applause');
 
 // test
-
 describe('core', function () {
 
   var applause;
   var expect;
   var result;
-  var json_test = {
-    "key_1": "value_1",
-    "key_2": "value_2",
-    "group_1": {
-      "group_2": {
-        "key_3": "value_3"
-      },
-      "group_3": {
-        "key_4": "value_4"
-      },
-      "array": [
-        1,
-        2,
-        3
-      ]
-    }
-  };
 
   it('should replace simple key with value', function (done) {
 
@@ -483,26 +463,6 @@ describe('core', function () {
 
   });
 
-  it('should sort the json patterns to prevent bad replaces', function (done) {
-
-    applause = Applause.create({
-      patterns: [
-        {
-          json: {
-            "small": "1",
-            "smaller": "2",
-            "smallest": "3"
-          }
-        }
-      ]
-    });
-    expect = '1-2-3';
-    result = applause.replace('@@small-@@smaller-@@smallest');
-    assert.equal(result, expect);
-    done();
-
-  });
-
   it('should replace simple key with value but preserve prefix', function (done) {
 
     applause = Applause.create({
@@ -559,40 +519,6 @@ describe('core', function () {
 
   });
 
-  it('should flatten json object', function (done) {
-
-    applause = Applause.create({
-      patterns: [
-        {
-          json: json_test
-        }
-      ]
-    });
-    expect = 'value_3';
-    result = applause.replace('@@group_1.group_2.key_3');
-    assert.equal(result, expect);
-    done();
-
-  });
-
-  it('should flatten json object with custom delimiter', function (done) {
-
-    applause = Applause.create({
-      patterns: [
-        {
-          json: json_test
-        }
-      ],
-      delimiter: '-'
-    });
-    expect = 'value_3';
-    result = applause.replace('@@group_1-group_2-key_3');
-    assert.equal(result, expect);
-    done();
-
-  });
-
-
   it('should escape string to create an regexp', function (done) {
 
     applause = Applause.create({
@@ -628,11 +554,11 @@ describe('core', function () {
     });
     expect = [
       '$var-value',
-      '@var-value',
+      '@var-value'
     ].join();
     result = applause.replace([
       '$var',
-      '@var',
+      '@var'
       ].join());
     assert.equal(result, expect);
     done();
@@ -664,7 +590,7 @@ describe('core', function () {
     ].join();
     result = applause.replace([
       '$var-fn',
-      '@var-fn',
+      '@var-fn'
       ].join());
     assert.equal(result, expect);
     done();
@@ -692,6 +618,24 @@ describe('plugins', function () {
     });
     expect = 'value';
     result = applause.replace('@@key');
+    assert.equal(result, expect);
+    done();
+
+  });
+
+  it('should read from json and replace simple key with value (special replacement pattern)', function (done) {
+
+    applause = Applause.create({
+      patterns: [
+        {
+          json: {
+            "API_KEY": "12213lkhgjhvj$$bvhmvff@sdfertvc"
+          }
+        }
+      ]
+    });
+    expect = '12213lkhgjhvj$$bvhmvff@sdfertvc';
+    result = applause.replace('@@API_KEY');
     assert.equal(result, expect);
     done();
 
@@ -733,6 +677,22 @@ describe('plugins', function () {
 
   });
 
+  it('should read from yaml and replace simple key with value (special replacement pattern)', function (done) {
+
+    applause = Applause.create({
+      patterns: [
+        {
+          yaml: 'API_KEY: 12213lkhgjhvj$$bvhmvff@sdfertvc'
+        }
+      ]
+    });
+    expect = '12213lkhgjhvj$$bvhmvff@sdfertvc';
+    result = applause.replace('@@API_KEY');
+    assert.equal(result, expect);
+    done();
+
+  });
+
   it('should read from deferrer yaml and replace simple key with value', function (done) {
 
     applause = Applause.create({
@@ -767,6 +727,22 @@ describe('plugins', function () {
 
   });
 
+  it('should read from cson and replace simple key with value (special replacement pattern)', function (done) {
+
+    applause = Applause.create({
+      patterns: [
+        {
+          cson: 'API_KEY: \'12213lkhgjhvj$$bvhmvff@sdfertvc\''
+        }
+      ]
+    });
+    expect = '12213lkhgjhvj$$bvhmvff@sdfertvc';
+    result = applause.replace('@@API_KEY');
+    assert.equal(result, expect);
+    done();
+
+  });
+
   it('should read from deferrer cson and replace simple key with value', function (done) {
 
     applause = Applause.create({
@@ -780,6 +756,76 @@ describe('plugins', function () {
     });
     expect = 'value';
     result = applause.replace('@@key');
+    assert.equal(result, expect);
+    done();
+
+  });
+
+  it('should sort the json patterns to prevent bad replaces', function (done) {
+
+    applause = Applause.create({
+      patterns: [
+        {
+          json: {
+            "small": "1",
+            "smaller": "2",
+            "smallest": "3"
+          }
+        }
+      ]
+    });
+    expect = '1-2-3';
+    result = applause.replace('@@small-@@smaller-@@smallest');
+    assert.equal(result, expect);
+    done();
+
+  });
+
+
+  // alternative
+
+  var json_test = {
+    "key_1": "value_1",
+    "key_2": "value_2",
+    "group_1": {
+      "group_2": {
+        "key_3": "value_3"
+      },
+      "group_3": {
+        "key_4": "value_4"
+      },
+      "array": [1, 2, 3]
+    }
+  };
+
+  it('should flatten json object', function (done) {
+
+    applause = Applause.create({
+      patterns: [
+        {
+          json: json_test
+        }
+      ]
+    });
+    expect = 'value_3';
+    result = applause.replace('@@group_1.group_2.key_3');
+    assert.equal(result, expect);
+    done();
+
+  });
+
+  it('should flatten json object with custom delimiter', function (done) {
+
+    applause = Applause.create({
+      patterns: [
+        {
+          json: json_test
+        }
+      ],
+      delimiter: '-'
+    });
+    expect = 'value_3';
+    result = applause.replace('@@group_1-group_2-key_3');
     assert.equal(result, expect);
     done();
 

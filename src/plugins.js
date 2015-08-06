@@ -1,4 +1,3 @@
-
 /*
  * applause
  *
@@ -8,20 +7,16 @@
  */
 
 // dependencies
-
 var path = require('path');
 
 // private
-
 var plugins = [];
 
 // took plugins from folder
-
 var dir = path.join(__dirname, '/plugins');
 require('fs').readdirSync(dir).forEach(function (file) {
   if (file.match(/.+\.js/g) !== null && file !== 'index.js') {
     var plugin = require(path.join(dir, file));
-    // var name = plugin.name;
     plugins.push(plugin);
   }
 });
@@ -32,5 +27,4 @@ plugins.sort(function (a, b) {
 });
 
 // expose
-
 module.exports = plugins;
