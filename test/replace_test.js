@@ -1,3 +1,4 @@
+
 /*
  * applause
  *
@@ -9,10 +10,12 @@
 'use strict';
 
 // dependencies
+
 var assert = require('assert');
 var Applause = require('../src/applause');
 
 // test
+
 describe('core', function () {
 
   var applause;

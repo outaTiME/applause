@@ -1,3 +1,4 @@
+
 /*
  * applause
  *
@@ -7,11 +8,13 @@
  */
 
 // dependencies
+
 var _ = require('lodash');
 var plugins = require('./plugins');
 
 // took from MDN
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+
 var escapeRegExp = function (string) {
   return string.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1");
 };
@@ -193,9 +196,11 @@ Applause.prototype.replace = function (content, process) {
 };
 
 // static
+
 Applause.create = function (opts) {
   return new Applause(opts);
 };
 
 // expose
+
 module.exports = Applause;

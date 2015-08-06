@@ -1,3 +1,4 @@
+
 /*
  * applause
  *
@@ -7,10 +8,12 @@
  */
 
 // dependencies
+
 var _ = require('lodash');
 var YAML = require('js-yaml');
 
 // expose
+
 module.exports = {
   name: 'yaml',
   priority: 10,

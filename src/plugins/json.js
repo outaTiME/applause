@@ -1,3 +1,4 @@
+
 /*
  * applause
  *
@@ -7,9 +8,11 @@
  */
 
 // dependencies
+
 var _ = require('lodash');
 
 // private
+
 var flatten = function (json, delimiter) {
   var result = [];
   var createFn = function (match, replacement) {
@@ -41,6 +44,7 @@ var flatten = function (json, delimiter) {
 };
 
 // expose
+
 module.exports = {
   name: 'json',
   priority: 20,

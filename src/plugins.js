@@ -1,3 +1,4 @@
+
 /*
  * applause
  *
@@ -7,12 +8,15 @@
  */
 
 // dependencies
+
 var path = require('path');
 
 // private
+
 var plugins = [];
 
 // took plugins from folder
+
 var dir = path.join(__dirname, '/plugins');
 require('fs').readdirSync(dir).forEach(function (file) {
   if (file.match(/.+\.js/g) !== null && file !== 'index.js') {
@@ -22,9 +26,11 @@ require('fs').readdirSync(dir).forEach(function (file) {
 });
 
 // priority sort
+
 plugins.sort(function (a, b) {
   return (a.priority || 0) - (b.priority || 0);
 });
 
 // expose
+
 module.exports = plugins;

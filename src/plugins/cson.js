@@ -1,3 +1,4 @@
+
 /*
  * applause
  *
@@ -7,10 +8,12 @@
  */
 
 // dependencies
+
 var _ = require('lodash');
 var CSON = require('cson-parser');
 
 // expose
+
 module.exports = {
   name: 'cson',
   priority: 10,

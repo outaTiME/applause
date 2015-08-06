@@ -505,7 +505,7 @@ var applause_op3 = Applause.create({
 
 ## Release History
 
- * 2015-08-06   v0.4.2   Fix issue with especial characters in replacement ($$, $&, $`, $', $n or $nn) when JSON, YAML or CSON.
+ * 2015-08-06   v0.4.3   Fix issue with special characters attributes ($$, $&, $`, $', $n or $nn) on JSON, YAML and CSON.
  * 2015-05-07   v0.4.1   Fix regression issue with empty string in replacement.
  * 2015-05-01   v0.4.0   New test cases, parse CSON using [@groupon](https://github.com/groupon/cson-parser), replace alias now supported, new detail flag and third party dependencies updated.
  * 2014-10-10   v0.3.4   Escape regexp when matching type is `String`.
