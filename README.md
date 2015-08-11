@@ -505,6 +505,7 @@ var applause_op3 = Applause.create({
 
 ## Release History
 
+ * 2015-08-11   v0.5.4   Meteor integration.
  * 2015-08-06   v0.4.3   Fix issue with special characters attributes ($$, $&, $`, $', $n or $nn) on JSON, YAML and CSON.
  * 2015-05-07   v0.4.1   Fix regression issue with empty string in replacement.
  * 2015-05-01   v0.4.0   New test cases, parse CSON using [@groupon](https://github.com/groupon/cson-parser), replace alias now supported, new detail flag and third party dependencies updated.

@@ -1,3 +1,7 @@
+# generics
 node_modules
-.npm
+
+# meteor files
+/.npm
+/.versions
 /package.js
