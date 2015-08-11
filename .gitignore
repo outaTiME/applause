@@ -1,1 +1,5 @@
 node_modules
+.build.*
+versions.json
+package.js
+.npm

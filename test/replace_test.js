@@ -600,6 +600,13 @@ describe('core', function () {
 
   });
 
+  it('should check version number', function (done) {
+
+    assert(typeof Applause.VERSION !== 'undefined');
+    done();
+
+  });
+
 });
 
 describe('plugins', function () {

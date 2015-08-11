@@ -1,0 +1,2 @@
+
+Applause = Npm.require('applause');
