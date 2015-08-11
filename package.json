@@ -1,7 +1,7 @@
 {
   "name": "applause",
   "description": "Pattern replacer that helps create a human-friendly replaces.",
-  "version": "0.5.4",
+  "version": "1.0.0",
   "homepage": "https://github.com/outaTiME/applause",
   "author": {
     "name": "outaTiME",
@@ -29,9 +29,9 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "cson-parser": "^1.0.9",
-    "js-yaml": "^3.0.0",
-    "lodash": "^3.0.0"
+    "cson-parser": "^1.1.0",
+    "js-yaml": "^3.3.0",
+    "lodash": "^3.10.0"
   },
   "devDependencies": {
     "grunt": "^0.4.0",
@@ -39,7 +39,7 @@
     "grunt-contrib-watch": "^0.6.0",
     "grunt-mocha-test": "^0.12.0",
     "grunt-exec": "^0.4.6",
-    "spacejam": "^1.1.1"
+    "spacejam": "^1.2.0"
   },
   "keywords": [
     "replace",
