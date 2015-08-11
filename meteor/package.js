@@ -8,7 +8,7 @@ var packageJson = JSON.parse(Npm.require("fs").readFileSync('package.json'));
 
 Package.describe({
   name: packageName,
-  summary: 'Applause (official): Pattern replacer that helps create a human-friendly replaces.',
+  summary: 'Applause (official): ' + packageJson.description,
   version: packageJson.version,
   git: 'https://github.com/outaTiME/applause.git'
 });

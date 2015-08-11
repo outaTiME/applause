@@ -1,6 +1,6 @@
 # Applause [![Build Status](https://secure.travis-ci.org/outaTiME/applause.png?branch=master)](http://travis-ci.org/outaTiME/applause)
 
-Replace text patterns with a given replacement.
+Pattern replacer that helps create a human-friendly replaces.
 
 ## Install
 

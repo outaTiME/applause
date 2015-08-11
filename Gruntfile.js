@@ -72,7 +72,7 @@ module.exports = function(grunt) {
         command: 'node_modules/.bin/spacejam --mongo-url mongodb:// test-packages ./'
       },
       'meteor-publish': {
-        command: 'meteor publish'
+        command: 'meteor publish --create'
       }
     }
 
