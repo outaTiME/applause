@@ -1,4 +1,4 @@
-# Applause [![Build Status](https://secure.travis-ci.org/outaTiME/applause.png?branch=master)](http://travis-ci.org/outaTiME/applause)
+# Applause [![Build Status](https://travis-ci.org/outaTiME/applause.svg?branch=master)](https://travis-ci.org/outaTiME/applause)
 
 Pattern replacer that helps create a human-friendly replaces.
 
@@ -505,6 +505,7 @@ var applause_op3 = Applause.create({
 
 ## Release History
 
+ * 2015-08-19   v1.0.1   Update package.json file.
  * 2015-08-11   v1.0.0   Version stabilization and Meteor integration.
  * 2015-08-06   v0.4.3   Fix issue with special characters attributes ($$, $&, $`, $', $n or $nn) on JSON, YAML and CSON.
  * 2015-05-07   v0.4.1   Fix regression issue with empty string in replacement.

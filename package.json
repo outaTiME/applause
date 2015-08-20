@@ -1,26 +1,13 @@
 {
   "name": "applause",
   "description": "Pattern replacer that helps create a human-friendly replaces.",
-  "version": "1.0.0",
-  "homepage": "https://github.com/outaTiME/applause",
+  "version": "1.0.1",
   "author": {
     "name": "outaTiME",
-    "email": "afalduto@gmail.com",
     "url": "http://outa.im/"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/outaTiME/applause"
-  },
-  "bugs": {
-    "url": "https://github.com/outaTiME/applause/issues"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/outaTiME/applause/blob/master/LICENSE-MIT"
-    }
-  ],
+  "repository": "outaTiME/applause",
+  "license": "MIT",
   "engines": {
     "node": ">= 0.10.0"
   },
@@ -58,7 +45,6 @@
   ],
   "main": "src/applause.js",
   "files": [
-    "src",
-    "LICENSE-MIT"
+    "src"
   ]
 }
