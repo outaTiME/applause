@@ -1,7 +1,7 @@
 {
   "name": "applause",
   "description": "Pattern replacer that helps create a human-friendly replaces.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "outaTiME",
     "url": "http://outa.im/"
@@ -27,6 +27,9 @@
     "grunt-mocha-test": "^0.12.0",
     "grunt-exec": "^0.4.6",
     "spacejam": "^1.2.0"
+  },
+  "peerDependencies": {
+    "grunt": ">=0.4.0"
   },
   "keywords": [
     "replace",
