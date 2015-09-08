@@ -1,6 +1,6 @@
 # Applause [![Build Status](https://img.shields.io/travis/outaTiME/applause.svg)](https://travis-ci.org/outaTiME/applause) [![NPM Version](https://img.shields.io/npm/v/applause.svg)](https://npmjs.org/package/applause)
 
-Pattern replacer that helps create a human-friendly replaces.
+Pattern replacer that helps creating human-friendly replacements.
 
 ## Install
 
@@ -106,13 +106,16 @@ Also supports object as replacement (we create string representation of object u
 }
 ```
 
+> The replacement only resolve the [special replacement patterns] when using regexp for matching.
+
 [String.replace]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
 [JSON.stringify]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+[special replacement patterns]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter
 
 #### patterns.json
 Type: `Object`
 
-If an attribute `json` found in pattern definition we flatten the object using `delimiter` concatenation and each key–value pair will be used for the replacement (simple variable lookup mechanism and no regexp support).
+If an attribute `json` is found in pattern definition we flatten the object using `delimiter` concatenation and each key–value pair will be used for the replacement (simple variable lookup mechanism and no regexp support).
 
 ```javascript
 {
@@ -162,7 +165,7 @@ For deferred invocations is possible to define functions:
 #### patterns.yaml
 Type: `String`
 
-If an attribute `yaml` found in pattern definition will be converted and then processed like [json attribute](#patternsjson).
+If an attribute `yaml` found in pattern definition it will be converted and then processed like [json attribute](#patternsjson).
 
 ```javascript
 {
@@ -191,7 +194,7 @@ For deferred invocations is possible to define functions:
 #### patterns.cson
 Type: `String`
 
-If an attribute `cson` found in pattern definition will be converted and then processed like [json attribute](#patternsjson).
+If an attribute `cson` is found in pattern definition it will be converted and then processed like [json attribute](#patternsjson).
 
 ```javascript
 {
@@ -242,7 +245,7 @@ The prefix added for matching (prevent bad replacements / easy way).
 Type: `Boolean`
 Default: `true`
 
-If set to `false`, we match the pattern without `prefix` concatenation (useful when you want to lookup an simple string).
+If set to `false`, we match the pattern without `prefix` concatenation (useful when you want to lookup a simple string).
 
 > This only applies for simple variable lookup mechanism.
 
@@ -252,7 +255,7 @@ Default: `false`
 
 If set to `true`, we preserve the `prefix` in target.
 
-> This only applies for simple variable lookup mechanism and `patterns.replacement` is an string.
+> This only applies for simple variable lookup mechanism and when `patterns.replacement` is a string.
 
 #### delimiter
 Type: `String`
@@ -270,7 +273,7 @@ If set to `true`, we preserve the patterns definition order, otherwise these wil
 Type: `Boolean`
 Default: `false`
 
-If set to `true`, return a object response with the `content` and `detail` of replace operation.
+If set to `true`, return an object response with the `content` and `detail` of replace operation.
 
 ### Usage Examples
 
@@ -505,6 +508,7 @@ var applause_op3 = Applause.create({
 
 ## Release History
 
+ * 2015-09-08   v1.1.0   Readme updated. Improvements in handling patterns. Fix plain object representation issue. More test cases.
  * 2015-08-11   v1.0.0   Version stabilization, Meteor integration and package.json update.
  * 2015-08-06   v0.4.3   Fix issue with special characters attributes ($$, $&, $`, $', $n or $nn) on JSON, YAML and CSON.
  * 2015-05-07   v0.4.1   Fix regression issue with empty string in replacement.

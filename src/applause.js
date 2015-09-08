@@ -19,61 +19,6 @@ var escapeRegExp = function (string) {
   return string.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1");
 };
 
-var normalize = function (applause, patterns) {
-  var opts = applause.options;
-  return _.transform(patterns, function (result, pattern) {
-    // filter empty patterns
-    var match = pattern.match;
-    // support replace flag too
-    var replacement = pattern.replacement;
-    if (replacement === undefined || replacement === null) {
-      replacement = pattern.replace;
-    }
-    var source = pattern.source;
-    var expression = false;
-    // match check
-    if (match !== undefined && match !== null) {
-      if (_.isRegExp(match)) {
-        expression = true;
-      } else if (_.isString(match)) {
-        if (match.length > 0) {
-          match = new RegExp(opts.prefix + escapeRegExp(match), 'g');
-        } else {
-          // empty match
-          return;
-        }
-      } else {
-        throw new Error('Unsupported match type (RegExp or String expected).');
-      }
-    } else {
-      throw new Error('Match attribute expected in pattern definition.');
-    }
-    // replacement check
-    if (replacement !== undefined && replacement !== null) {
-      if (!_.isFunction(replacement)) {
-        if (!_.isString(replacement)) {
-          // transform object to string
-          replacement = JSON.stringify(replacement);
-        } else {
-          // easy way
-          if (expression === false && opts.preservePrefix === true) {
-            replacement = opts.prefix + replacement;
-          }
-        }
-      } else {
-        // replace using function return value
-      }
-    } else {
-      throw new Error('Replacement attribute expected in pattern definition.');
-    }
-    return result.push({
-      match: match,
-      replacement: replacement,
-      source: source
-    });
-  });
-};
-
 var getPatterns = function (applause) {
   var opts = applause.options;
   // shallow patterns
@@ -133,8 +78,7 @@ var getPatterns = function (applause) {
       return 1;
     });
   }
-  // normalize definition
-  return normalize(applause, patterns);
+  return patterns;
 };
 
 // applause
@@ -161,15 +105,58 @@ Applause.prototype.replace = function (content, process) {
   var total_count = 0;
   // iterate over each pattern and make replacement
   patterns.forEach(function (pattern, i) {
+    // filter empty patterns
     var match = pattern.match;
+    // support replace flag too
     var replacement = pattern.replacement;
-    // wrap replacement function to add process arguments
-    if (_.isFunction(replacement)) {
-      replacement = function () {
-        var args = Array.prototype.slice.call(arguments);
-        return pattern.replacement.apply(this, args.concat(process || []));
-      };
+    if (replacement === undefined || replacement === null) {
+      replacement = pattern.replace;
     }
+    var source = pattern.source;
+    var expression = false;
+    // match check
+    if (match !== undefined && match !== null) {
+      if (_.isRegExp(match)) {
+        expression = true;
+      } else if (_.isString(match)) {
+        if (match.length > 0) {
+          match = new RegExp(opts.prefix + escapeRegExp(match), 'g');
+        } else {
+          // empty match
+          return;
+        }
+      } else {
+        throw new Error('Unsupported match type (RegExp or String expected).');
+      }
+    } else {
+      throw new Error('Match attribute expected in pattern definition.');
+    }
+    // replacement check
+    if (replacement !== undefined && replacement !== null) {
+      if (!_.isFunction(replacement)) {
+        if (!_.isString(replacement)) {
+          // transform object to string
+          replacement = JSON.stringify(replacement);
+        }
+        if (expression === false) {
+          // escape dollar sequences in easy mode
+          replacement = replacement.replace(/\$/g, '$$$');
+          // preserve prefix
+          if (opts.preservePrefix === true) {
+            replacement = opts.prefix + replacement;
+          }
+        }
+      } else {
+        // replace using function return value
+        replacement = function () {
+          var args = Array.prototype.slice.call(arguments);
+          return pattern.replacement.apply(this, args.concat(process || []));
+        };
+      }
+    } else {
+      throw new Error('Replacement attribute expected in pattern definition.');
+    }
+    // replace logic
     var count = (content.match(match) || []).length;
     if (count > 0) {
       // update content

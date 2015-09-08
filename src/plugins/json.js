@@ -15,26 +15,14 @@ var _ = require('lodash');
 
 var flatten = function (json, delimiter) {
   var result = [];
-  var createFn = function (match, replacement) {
-    // prevent replace issues with $$, $&, $`, $', $n or $nn
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter
-    return function () {
-      if (_.isPlainObject(replacement)) {
-        // transform object to string
-        return JSON.stringify(replacement);
-      }
-      return replacement;
-    };
-  };
   var recurse = function (cur, prop) {
     for (var key in cur) {
       if (cur.hasOwnProperty(key)) {
         var item = cur[key];
         var match = prop ? prop + delimiter + key : key;
-        // console.log('>>> push, match: ' + match, ', value: ' + JSON.stringify(item));
         result.push({
           match: match,
-          replacement: createFn(match, item),
+          replacement: item,
           expression: false
         });
         // deep scan
