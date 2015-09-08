@@ -20,17 +20,8 @@ var flatten = function (json, delimiter) {
       if (cur.hasOwnProperty(key)) {
         var item = cur[key];
         var match = prop ? prop + delimiter + key : key;
-        /* var replacement = item;
-        if (!_.isString(replacement)) {
-          replacement = JSON.stringify(replacement);
-        }
-        // escape dollar sequences
-        replacement = replacement.replace(/\$/g, '$$$'); */
         result.push({
           match: match,
-          // replacement: createFn(match, item),
-          // escape
-          // replacement: replacement,
           replacement: item,
           expression: false
         });
