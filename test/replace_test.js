@@ -857,7 +857,7 @@ describe('plugins', function () {
 
   });
 
-  it('should replace simple key from json with plain object representation but preserve prefix', function (done) {
+  /* it('should replace simple key from json with plain object representation but preserve prefix', function (done) {
 
     applause = Applause.create({
       patterns: [
@@ -872,7 +872,7 @@ describe('plugins', function () {
     assert.equal(result, expect);
     done();
 
-  });
+  }); */
 
 
 });
