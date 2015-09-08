@@ -173,18 +173,35 @@ describe('core', function () {
 
   });
 
-  it('should escape the dollar sign ($)', function (done) {
+  it('should not escape dollar sequence when use simple key', function (done) {
 
     applause = Applause.create({
       patterns: [
         {
           match: 'key',
-          replacement: '$$\''
+          replacement: '$'
         }
       ]
     });
-    expect = '$\'';
+    expect = '$';
     result = applause.replace('@@key');
+    assert.equal(result, expect);
+    done();
+
+  });
+
+  it('should escape dollar sequence when use regexp for matching', function (done) {
+
+    applause = Applause.create({
+      patterns: [
+        {
+          match: /key/g,
+          replacement: '$$'
+        }
+      ]
+    });
+    expect = '$';
+    result = applause.replace('key');
     assert.equal(result, expect);
     done();
 
@@ -466,7 +483,7 @@ describe('core', function () {
 
   });
 
-  it('should replace simple key with value but preserve prefix', function (done) {
+  it('should replace simple key with value and preserve prefix', function (done) {
 
     applause = Applause.create({
       patterns: [
@@ -483,6 +500,26 @@ describe('core', function () {
     done();
 
   });
+
+  it('should replace simple key with array object representation and preserve prefix', function (done) {
+
+    applause = Applause.create({
+      patterns: [
+        {
+          match: 'key',
+          replacement: [1, 2, 3, 4]
+        }
+      ],
+      preservePrefix: true
+    });
+    expect = '@@[1,2,3,4]';
+    result = applause.replace('@@key');
+    assert.equal(result, expect);
+    done();
+
+  });
+
+
 
   it('should replace simple key with value and not preserve prefix (function as replacement)', function (done) {
 
@@ -633,13 +670,13 @@ describe('plugins', function () {
 
   });
 
-  it('should read from json and replace simple key with value (special replacement pattern)', function (done) {
+  it('should read from json and replace simple key with value (escape dollar sequence)', function (done) {
 
     applause = Applause.create({
       patterns: [
         {
           json: {
-            "API_KEY": "12213lkhgjhvj$$bvhmvff@sdfertvc"
+            'API_KEY': '12213lkhgjhvj$$bvhmvff@sdfertvc'
           }
         }
       ]
@@ -687,7 +724,7 @@ describe('plugins', function () {
 
   });
 
-  it('should read from yaml and replace simple key with value (special replacement pattern)', function (done) {
+  it('should read from yaml and replace simple key with value (escape dollar sequence)', function (done) {
 
     applause = Applause.create({
       patterns: [
@@ -737,7 +774,7 @@ describe('plugins', function () {
 
   });
 
-  it('should read from cson and replace simple key with value (special replacement pattern)', function (done) {
+  it('should read from cson and replace simple key with value (escape dollar sequence)', function (done) {
 
     applause = Applause.create({
       patterns: [
@@ -777,9 +814,9 @@ describe('plugins', function () {
       patterns: [
         {
           json: {
-            "small": "1",
-            "smaller": "2",
-            "smallest": "3"
+            'small': '1',
+            'smaller': '2',
+            'smallest': '3'
           }
         }
       ]
@@ -795,16 +832,16 @@ describe('plugins', function () {
   // alternative
 
   var json_test = {
-    "key_1": "value_1",
-    "key_2": "value_2",
-    "group_1": {
-      "group_2": {
-        "key_3": "value_3"
+    'key_1': 'value_1',
+    'key_2': 'value_2',
+    'group_1': {
+      'group_2': {
+        'key_3': 'value_3'
       },
-      "group_3": {
-        "key_4": "value_4"
+      'group_3': {
+        'key_4': 'value_4'
       },
-      "array": [1, 2, 3]
+      'array': [1, 2, 3]
     }
   };
 
@@ -857,7 +894,7 @@ describe('plugins', function () {
 
   });
 
-  it('should replace simple key from json with plain object representation but preserve prefix', function (done) {
+  it('should replace simple key from json with plain object representation and preserve prefix', function (done) {
 
     applause = Applause.create({
       patterns: [

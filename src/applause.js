@@ -54,9 +54,12 @@ var normalize = function (applause, patterns) {
         if (!_.isString(replacement)) {
           // transform object to string
           replacement = JSON.stringify(replacement);
-        } else {
-          // easy way
-          if (expression === false && opts.preservePrefix === true) {
+        }
+        if (expression === false) {
+          // escape dollar sequences in easy mode
+          replacement = replacement.replace(/\$/g, '$$$');
+          // preserve prefix
+          if (opts.preservePrefix === true) {
             replacement = opts.prefix + replacement;
           }
         }

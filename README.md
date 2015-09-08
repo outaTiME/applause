@@ -106,8 +106,11 @@ Also supports object as replacement (we create string representation of object u
 }
 ```
 
+> The replacement only resolve the [special replacement patterns] only when using regexp for matching.
+
 [String.replace]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
 [JSON.stringify]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+[special replacement patterns]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter
 
 #### patterns.json
 Type: `Object`
@@ -252,7 +255,7 @@ Default: `false`
 
 If set to `true`, we preserve the `prefix` in target.
 
-> This only applies for simple variable lookup mechanism and `patterns.replacement` is an string.
+> This only applies for simple variable lookup mechanism and when `patterns.replacement` is a string.
 
 #### delimiter
 Type: `String`
@@ -505,6 +508,7 @@ var applause_op3 = Applause.create({
 
 ## Release History
 
+ * 2015-09-08   v1.1.0   Improvements in handling patterns. Fix plain object representation issue. More test cases.
  * 2015-08-11   v1.0.0   Version stabilization, Meteor integration and package.json update.
  * 2015-08-06   v0.4.3   Fix issue with special characters attributes ($$, $&, $`, $', $n or $nn) on JSON, YAML and CSON.
  * 2015-05-07   v0.4.1   Fix regression issue with empty string in replacement.
