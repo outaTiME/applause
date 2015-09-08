@@ -857,4 +857,22 @@ describe('plugins', function () {
 
   });
 
+  it('should replace simple key from json with plain object representation but preserve prefix', function (done) {
+
+    applause = Applause.create({
+      patterns: [
+        {
+          json: json_test
+        }
+      ],
+      preservePrefix: true
+    });
+    expect = '@@{"key_3":"value_3"}';
+    result = applause.replace('@@group_1.group_2');
+    assert.equal(result, expect);
+    done();
+
+  });
+
+
 });
