@@ -34,7 +34,7 @@ describe('core', function () {
     });
     expect = 'value';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -51,7 +51,7 @@ describe('core', function () {
     });
     expect = '';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -87,7 +87,7 @@ describe('core', function () {
     });
     expect = 'value';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -105,7 +105,7 @@ describe('core', function () {
     });
     expect = 'value';
     result = applause.replace('@replace:key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -123,7 +123,7 @@ describe('core', function () {
     });
     expect = 'value';
     result = applause.replace('key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -145,7 +145,7 @@ describe('core', function () {
     });
     expect = 'value-1,value-2';
     result = applause.replace('@@key-1,@@key-2');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -185,7 +185,7 @@ describe('core', function () {
     });
     expect = '$';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -202,7 +202,7 @@ describe('core', function () {
     });
     expect = '$';
     result = applause.replace('key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -219,7 +219,7 @@ describe('core', function () {
     });
     expect = 'detta är en sträng';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -236,7 +236,7 @@ describe('core', function () {
     });
     expect = 'value';
     result = applause.replace('key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -255,7 +255,7 @@ describe('core', function () {
     });
     expect = 'value';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -272,7 +272,7 @@ describe('core', function () {
     });
     expect = 'Smith, John';
     result = applause.replace('John Smith');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -386,7 +386,7 @@ describe('core', function () {
     });
     expect = false;
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -403,7 +403,7 @@ describe('core', function () {
     });
     expect = false;
     result = applause.replace();
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -417,7 +417,7 @@ describe('core', function () {
     });
     expect = 'value';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -434,7 +434,7 @@ describe('core', function () {
     });
     expect = '[1,2,3,4]';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -453,7 +453,7 @@ describe('core', function () {
     });
     expect = '{"foo":"bar"}';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -478,7 +478,7 @@ describe('core', function () {
     });
     expect = '1-2-3';
     result = applause.replace('@@small-@@smaller-@@smallest');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -496,7 +496,7 @@ describe('core', function () {
     });
     expect = '@@value';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -514,7 +514,7 @@ describe('core', function () {
     });
     expect = '@@[1,2,3,4]';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -536,7 +536,7 @@ describe('core', function () {
     });
     expect = 'value';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -554,7 +554,7 @@ describe('core', function () {
     });
     expect = 'value';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -572,7 +572,7 @@ describe('core', function () {
     });
     expect = '../font/';
     result = applause.replace('(../fonts/');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -600,7 +600,7 @@ describe('core', function () {
       '$var',
       '@var'
       ].join());
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -632,7 +632,7 @@ describe('core', function () {
       '$var-fn',
       '@var-fn'
       ].join());
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -665,7 +665,7 @@ describe('plugins', function () {
     });
     expect = 'value';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -683,7 +683,7 @@ describe('plugins', function () {
     });
     expect = '12213lkhgjhvj$$bvhmvff@sdfertvc';
     result = applause.replace('@@API_KEY');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -703,7 +703,7 @@ describe('plugins', function () {
     });
     expect = 'value';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -719,7 +719,7 @@ describe('plugins', function () {
     });
     expect = 'value';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -735,7 +735,7 @@ describe('plugins', function () {
     });
     expect = '12213lkhgjhvj$$bvhmvff@sdfertvc';
     result = applause.replace('@@API_KEY');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -753,7 +753,7 @@ describe('plugins', function () {
     });
     expect = 'value';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -769,7 +769,7 @@ describe('plugins', function () {
     });
     expect = 'value';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -785,7 +785,7 @@ describe('plugins', function () {
     });
     expect = '12213lkhgjhvj$$bvhmvff@sdfertvc';
     result = applause.replace('@@API_KEY');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -803,7 +803,7 @@ describe('plugins', function () {
     });
     expect = 'value';
     result = applause.replace('@@key');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -823,7 +823,7 @@ describe('plugins', function () {
     });
     expect = '1-2-3';
     result = applause.replace('@@small-@@smaller-@@smallest');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -856,7 +856,7 @@ describe('plugins', function () {
     });
     expect = 'value_3';
     result = applause.replace('@@group_1.group_2.key_3');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -873,7 +873,7 @@ describe('plugins', function () {
     });
     expect = 'value_3';
     result = applause.replace('@@group_1-group_2-key_3');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -889,7 +889,7 @@ describe('plugins', function () {
     });
     expect = '{"key_3":"value_3"}';
     result = applause.replace('@@group_1.group_2');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });
@@ -906,7 +906,7 @@ describe('plugins', function () {
     });
     expect = '@@{"key_3":"value_3"}';
     result = applause.replace('@@group_1.group_2');
-    assert.equal(result, expect);
+    assert.equal(result.content, expect);
     done();
 
   });

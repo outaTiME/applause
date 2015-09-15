@@ -90,8 +90,7 @@ var Applause = function (opts) {
     usePrefix: true,
     preservePrefix: false,
     delimiter: '.',
-    preserveOrder: false,
-    detail: false
+    preserveOrder: false
   });
 };
 
@@ -163,6 +162,8 @@ Applause.prototype.replace = function (content, process) {
       content = content.replace(match, replacement);
       // save detail data
       detail.push({
+        match: match,
+        replacement: replacement,
         source: pattern.source,
         count: count
       });
@@ -172,14 +173,11 @@ Applause.prototype.replace = function (content, process) {
   if (detail.length === 0) {
     content = false;
   }
-  if (opts.detail === true) {
-    return {
-      content: content,
-      detail: detail,
-      count: total_count
-    };
-  }
-  return content;
+  return {
+    content: content,
+    detail: detail,
+    count: total_count
+  };
 };
 
 // static

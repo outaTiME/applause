@@ -45,7 +45,7 @@ var options = {
 var applause = Applause.create(options);
 var contents = '@@foo';
 var result = applause.replace(contents);
-console.log(result); // bar
+console.log(result.content); // bar
 ```
 
 ### Applause Options
@@ -269,12 +269,6 @@ Default: `false`
 
 If set to `true`, we preserve the patterns definition order, otherwise these will be sorted (in ascending order) to prevent replacement issues like `head` / `header` (typo regexps will be resolved at last).
 
-#### detail
-Type: `Boolean`
-Default: `false`
-
-If set to `true`, return an object response with the `content` and `detail` of replace operation.
-
 ### Usage Examples
 
 #### Basic
@@ -310,7 +304,7 @@ var options = {
 var applause = Applause.create(options);
 var contents = fs.readFileSync('./src/manifest.appcache', 'utf8');
 var result = applause.replace(contents);
-console.log(result); // replaced output
+console.log(result.content); // replaced output
 ```
 
 #### Multiple matching
@@ -374,10 +368,10 @@ var options = {
 var applause = Applause.create(options);
 var contents = fs.readFileSync('./src/manifest.appcache', 'utf8');
 var result = applause.replace(contents);
-console.log(result); // replaced output
+console.log(result.content); // replaced output
 contents = fs.readFileSync('./src/humans.txt', 'utf8');
 result = applause.replace(contents);
-console.log(result); // replaced output
+console.log(result.content); // replaced output
 ```
 
 #### Cache busting
@@ -407,7 +401,7 @@ var options = {
 var applause = Applause.create(options);
 var contents = fs.readFileSync('./src/index.html', 'utf8');
 var result = applause.replace(contents);
-console.log(result); // replaced output
+console.log(result.content); // replaced output
 ```
 
 #### Include file
@@ -436,7 +430,7 @@ var options = {
 var applause = Applause.create(options);
 var contents = fs.readFileSync('./src/index.html', 'utf8');
 var result = applause.replace(contents);
-console.log(result); // replaced output
+console.log(result.content); // replaced output
 ```
 
 #### Regular expression
@@ -463,7 +457,7 @@ var options = {
 var applause = Applause.create(options);
 var contents = fs.readFileSync('./username.txt', 'utf8');
 var result = applause.replace(contents);
-console.log(result); // replaced output
+console.log(result.content); // replaced output
 ```
 
 #### Lookup for `foo` instead of `@@foo`
@@ -508,6 +502,7 @@ var applause_op3 = Applause.create({
 
 ## Release History
 
+ * 2015-09-15   v1.2.0   Use detailed response for replaces with content, detail and count.
  * 2015-09-08   v1.1.0   Readme updated. Improvements in handling patterns. Fix plain object representation issue. More test cases.
  * 2015-08-11   v1.0.0   Version stabilization, Meteor integration and package.json update.
  * 2015-08-06   v0.4.3   Fix issue with special characters attributes ($$, $&, $`, $', $n or $nn) on JSON, YAML and CSON.
