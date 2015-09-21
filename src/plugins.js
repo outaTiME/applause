@@ -13,17 +13,22 @@ var path = require('path');
 
 // private
 
-var plugins = [];
+// var dir = path.join(__dirname, '/plugins');
+
+var plugins = [
+  require('./plugins/yaml'),
+  require('./plugins/cson'),
+  require('./plugins/json')
+];
 
 // took plugins from folder
 
-var dir = path.join(__dirname, '/plugins');
-require('fs').readdirSync(dir).forEach(function (file) {
+/* require('fs').readdirSync(dir).forEach(function (file) {
   if (file.match(/.+\.js/g) !== null && file !== 'index.js') {
     var plugin = require(path.join(dir, file));
     plugins.push(plugin);
   }
-});
+}); */
 
 // priority sort
 

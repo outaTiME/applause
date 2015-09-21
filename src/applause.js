@@ -170,6 +170,7 @@ Applause.prototype.replace = function (content, process) {
       total_count += count;
     }
   });
+  // FIXME: always return detailed result
   if (detail.length === 0) {
     content = false;
   }
