@@ -187,7 +187,7 @@ Applause.create = function (opts) {
   return new Applause(opts);
 };
 
-Applause.VERSION = require('../package.json').version;
+Applause.version = require('../package.json').version;
 
 // expose
 

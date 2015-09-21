@@ -639,7 +639,7 @@ describe('core', function () {
 
   it('should check version number', function (done) {
 
-    assert(typeof Applause.VERSION !== 'undefined');
+    assert(typeof Applause.version !== 'undefined');
     done();
 
   });

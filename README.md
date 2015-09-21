@@ -502,6 +502,7 @@ var applause_op3 = Applause.create({
 
 ## Release History
 
+ * 2015-09-21   v1.2.2   Update VERSION to lower (version).
  * 2015-09-21   v1.2.1   Better support for browserify.
  * 2015-09-15   v1.2.0   Use detailed response for replaces with content, detail and count.
  * 2015-09-08   v1.1.0   Readme updated. Improvements in handling patterns. Fix plain object representation issue. More test cases.
