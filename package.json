@@ -1,7 +1,7 @@
 {
   "name": "applause",
-  "description": "Pattern replacer that helps creating human-friendly replacements.",
-  "version": "1.2.2",
+  "description": "Human-friendly replacements.",
+  "version": "1.2.3",
   "author": {
     "name": "outaTiME",
     "url": "http://outa.im/"
@@ -16,7 +16,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "cson-parser": "^1.1.0",
+    "cson-parser": "^1.2.0",
     "js-yaml": "^3.3.0",
     "lodash": "^3.10.0"
   },

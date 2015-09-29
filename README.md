@@ -2,6 +2,8 @@
 
 Pattern replacer that helps creating human-friendly replacements.
 
+**Try our [payground], where you can test every single option of applause.**
+
 ## Install
 
 First make sure you have installed the latest version of [node.js](http://nodejs.org/)
@@ -107,10 +109,6 @@ Also supports object as replacement (we create string representation of object u
 ```
 
 > The replacement only resolve the [special replacement patterns] when using regexp for matching.
-
-[String.replace]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
-[JSON.stringify]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
-[special replacement patterns]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter
 
 #### patterns.json
 Type: `Object`
@@ -268,6 +266,11 @@ Type: `Boolean`
 Default: `false`
 
 If set to `true`, we preserve the patterns definition order, otherwise these will be sorted (in ascending order) to prevent replacement issues like `head` / `header` (typo regexps will be resolved at last).
+
+[payground]: http://outatime.github.io/applause.io/
+[String.replace]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
+[JSON.stringify]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+[special replacement patterns]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter
 
 ### Usage Examples
 
