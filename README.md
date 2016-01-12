@@ -2,7 +2,7 @@
 
 Pattern replacer that helps creating human-friendly replacements.
 
-**Try our [payground], where you can test every single option of applause.**
+**Try our [playground], where you can test every single option of applause.**
 
 ## Install
 
