@@ -16,7 +16,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "cson-parser": "^1.2.0",
+    "cson-parser": "^3.0.0",
     "js-yaml": "^3.3.0",
     "lodash": "^3.10.0"
   },
