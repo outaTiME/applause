@@ -12,7 +12,7 @@
 // dependencies
 
 var assert = require('assert');
-var Applause = require('../src/applause');
+var Applause = require('./src/applause');
 
 // test
 

@@ -4,7 +4,7 @@
 set -e
 
 # execute test files
-npm test
+npm run test
 
 CHANGES=$(git diff --numstat | wc -l)
 CHANGES_CACHED=$(git diff --cached --numstat | wc -l)
