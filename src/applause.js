@@ -90,7 +90,10 @@ var Applause = function (opts) {
     usePrefix: true,
     preservePrefix: false,
     delimiter: '.',
-    preserveOrder: false
+    preserveOrder: false,
+    detail: false,
+    suffix: opts.useSuffix === true ? '@@' : '',
+    useSuffix: false
   });
 };
 
@@ -119,7 +122,7 @@ Applause.prototype.replace = function (content, process) {
         expression = true;
       } else if (_.isString(match)) {
         if (match.length > 0) {
-          match = new RegExp(opts.prefix + escapeRegExp(match), 'g');
+          match = new RegExp(opts.prefix + escapeRegExp(match) + opts.suffix, 'g');
         } else {
           // empty match
           return;
@@ -162,23 +165,23 @@ Applause.prototype.replace = function (content, process) {
       content = content.replace(match, replacement);
       // save detail data
       detail.push({
-        match: match,
-        replacement: replacement,
         source: pattern.source,
         count: count
       });
       total_count += count;
     }
   });
-  // FIXME: always return detailed result
   if (detail.length === 0) {
     content = false;
   }
-  return {
-    content: content,
-    detail: detail,
-    count: total_count
-  };
+  if (opts.detail === true) {
+    return {
+      content: content,
+      detail: detail,
+      count: total_count
+    };
+  }
+  return content;
 };
 
 // static
@@ -187,7 +190,7 @@ Applause.create = function (opts) {
   return new Applause(opts);
 };
 
-Applause.version = require('../package.json').version;
+Applause.VERSION = require('../package.json').version;
 
 // expose
 
