@@ -1,33 +1,25 @@
 {
   "name": "applause",
+  "version": "2.0.0",
   "description": "Human-friendly replacements.",
-  "version": "1.2.3",
+  "license": "MIT",
+  "repository": "outaTiME/applause",
   "author": {
     "name": "outaTiME",
-    "url": "http://outa.im/"
+    "email": "afalduto@gmail.com",
+    "url": "https://outa.im"
   },
-  "repository": "outaTiME/applause",
-  "license": "MIT",
+  "exports": "./index.js",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">=10"
   },
   "scripts": {
-    "release": "scripts/release.sh",
-    "test": "grunt test"
+    "test": "eslint . && ava"
   },
-  "dependencies": {
-    "cson-parser": "^1.2.0",
-    "js-yaml": "^3.3.0",
-    "lodash": "^3.10.0"
-  },
-  "devDependencies": {
-    "grunt": "^0.4.0",
-    "grunt-contrib-jshint": "^0.11.0",
-    "grunt-contrib-watch": "^0.6.0",
-    "grunt-mocha-test": "^0.12.0",
-    "grunt-exec": "^0.4.6",
-    "spacejam": "^1.2.0"
-  },
+  "files": [
+    "index.js",
+    "src"
+  ],
   "keywords": [
     "replace",
     "replacement",
@@ -43,8 +35,24 @@
     "cson",
     "flatten"
   ],
-  "main": "src/applause.js",
-  "files": [
-    "src"
-  ]
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "optional-require": "^1.0.2"
+  },
+  "devDependencies": {
+    "ava": "^3.15.0",
+    "eslint": "^7.20.0",
+    "eslint-config-xo": "^0.35.0",
+    "eslint-config-xo-space": "^0.27.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "xo",
+      "xo-space"
+    ]
+  },
+  "optionalDependencies": {
+    "cson-parser": "^4.0.8",
+    "js-yaml": "^4.0.0"
+  }
 }

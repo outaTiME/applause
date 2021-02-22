@@ -1,10 +1,2 @@
-# generics
 node_modules
-npm-debug.log
-tmp
-.DS_Store
-
-# meteor files
-/.npm
-/.versions
-/package.js
+yarn.lock

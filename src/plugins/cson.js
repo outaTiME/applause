@@ -1,37 +1,32 @@
-
-/*
- * applause
- *
- * Copyright (c) 2015 outaTiME
- * Licensed under the MIT license.
- * https://github.com/outaTiME/applause/blob/master/LICENSE-MIT
- */
-
-// dependencies
-
 var _ = require('lodash');
-var CSON = require('cson-parser');
+// Var CSON = require('cson-parser');
+const optionalRequire = require('optional-require')(require);
 
-// expose
-
+// Expose
 module.exports = {
   name: 'cson',
   priority: 10,
-  match: function (pattern, opts) {
+  match: function (pattern) {
     var cson = pattern.cson;
     var match = typeof cson !== 'undefined';
     return match;
   },
   transform: function (pattern, opts, done) {
     var cson = pattern.cson;
-    // function support
+    // Function support
     if (_.isFunction(cson)) {
       cson.call(this, function (result) {
-        // override cson function with value
+        // Override cson function with value
         cson = result;
       });
     }
+
     try {
+      const CSON = optionalRequire('cson-parser');
+      if (!CSON) {
+        throw new Error('Missing ' + this.name + ' dependency for transform (cson-parser).');
+      }
+
       done({
         json: CSON.parse(cson)
       });

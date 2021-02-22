@@ -1,2 +1,0 @@
-
-Applause = Npm.require('applause');
