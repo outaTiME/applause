@@ -1,8 +1,13 @@
-# Applause [![Build Status](https://img.shields.io/travis/outaTiME/applause.svg)](https://travis-ci.org/outaTiME/applause) [![NPM Version](https://img.shields.io/npm/v/applause.svg)](https://npmjs.org/package/applause)
+# Applause 👏
+[![Build Status](https://img.shields.io/travis/outaTiME/applause.svg)](https://travis-ci.org/outaTiME/applause)
+[![Version](https://img.shields.io/npm/v/applause.svg)](https://www.npmjs.com/package/applause)
+![Prerequisite](https://img.shields.io/badge/node-%3E%3D10-blue.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
+[![Twitter: outa7iME](https://img.shields.io/twitter/follow/outa7iME.svg?style=social)](https://twitter.com/outa7iME)
 
-Pattern replacer that helps creating human-friendly replacements.
+> Pattern replacer that helps creating human-friendly replacements.
 
-**Try our [playground], where you can test every single option of applause.**
+**Try the [playground], where you can test every single option of applause.**
 
 ## Install
 
@@ -29,7 +34,7 @@ cd applause
 npm link .
 ```
 
-## API Reference
+## Usage
 
 Assuming installation via NPM, you can use `applause` in your application like this:
 
@@ -50,37 +55,37 @@ var result = applause.replace(contents);
 console.log(result.content); // bar
 ```
 
-### Applause Options
+## Options
 
-#### patterns
+### patterns
 Type: `Array`
 
-Define patterns that will be used to replace the contents of source files.
+Defines the patterns that will be used to replace the content input.
 
-#### patterns.match
+### patterns.match
 Type: `String|RegExp`
 
 Indicates the matching expression.
 
-If matching type is `String` we use a simple variable lookup mechanism `@@string` (in any other case we use the default regexp replace logic):
+If the match type is `String`, a simple variable search mechanism `@@string` is used (in any other case the default regexp replacement logic is used):
 
 ```javascript
 {
   patterns: [
     {
       match: 'foo',
-      replacement: 'bar'  // replaces "@@foo" to "bar"
+      replacement: 'bar'  // replaces "@@foo" with "bar"
     }
   ]
 }
 ```
 
-#### patterns.replacement or patterns.replace
+### patterns.replacement or patterns.replace
 Type: `String|Function|Object`
 
-Indicates the replacement for match, for more information about replacement check out the [String.replace].
+Indicates the replacement for match. For more information about replacement, see [String.replace].
 
-You can specify a function as replacement. In this case, the function will be invoked after the match has been performed. The function's result (return value) will be used as the replacement string.
+You can specify a function as a replacement. In this case, the function will be invoked after the match has been made. The result of the function (return value) will be used as the replacement string.
 
 ```javascript
 {
@@ -88,55 +93,55 @@ You can specify a function as replacement. In this case, the function will be in
     {
       match: /foo/g,
       replacement: function () {
-        return 'bar'; // replaces "foo" to "bar"
+        return 'bar'; // replaces "foo" with "bar"
       }
     }
   ]
 }
 ```
 
-Also supports object as replacement (we create string representation of object using [JSON.stringify]):
+Objects are also supported as replacement (a string representation of the object is created using [JSON.stringify]):
 
 ```javascript
 {
   patterns: [
     {
       match: /foo/g,
-      replacement: [1, 2, 3] // replaces "foo" with string representation of "array" object
+      replacement: [1, 2, 3] // replaces "foo" with string representation of the array
     }
   ]
 }
 ```
 
-> The replacement only resolve the [special replacement patterns] when using regexp for matching.
+> The replacement only resolves the [special replacement patterns] when using regexp to match.
 
-#### patterns.json
+### patterns.json
 Type: `Object`
 
-If an attribute `json` is found in pattern definition we flatten the object using `delimiter` concatenation and each key–value pair will be used for the replacement (simple variable lookup mechanism and no regexp support).
+If a `json` attribute is found in the pattern definition, the object is flattened using the [delimiter](#delimiter) concatenation and each key-value pair will be used for replacement (simple variable lookup mechanism and no regexp support).
 
 ```javascript
 {
   patterns: [
     {
       json: {
-        "key": "value" // replaces "@@key" to "value"
+        "key": "value" // replaces "@@key" with "value"
       }
     }
   ]
 }
 ```
 
-Also supports nested objects:
+Nested objects are also supported:
 
 ```javascript
 {
   patterns: [
     {
       json: {
-        "key": "value",   // replaces "@@key" to "value"
-        "inner": {        // replaces "@@inner" with string representation of "inner" object
-          "key": "value"  // replaces "@@inner.key" to "value"
+        "key": "value",   // replaces "@@key" with "value"
+        "inner": {        // replaces "@@inner" with string representation of the "inner" object
+          "key": "value"  // replaces "@@inner.key" with "value"
         }
       }
     }
@@ -144,7 +149,7 @@ Also supports nested objects:
 }
 ```
 
-For deferred invocations is possible to define functions:
+You can define functions for deferred invocations:
 
 ```javascript
 {
@@ -160,22 +165,22 @@ For deferred invocations is possible to define functions:
 }
 ```
 
-#### patterns.yaml
+### patterns.yaml
 Type: `String`
 
-If an attribute `yaml` found in pattern definition it will be converted and then processed like [json attribute](#patternsjson).
+If a `yaml` attribute is found in the pattern definition, it will be converted and then processed as [json](#patternsjson) attribute.
 
 ```javascript
 {
   patterns: [
     {
-      yaml: 'key: value'  // replaces "@@key" to "value"
+      yaml: 'key: value'  // replaces "@@key" with "value"
     }
   ]
 }
 ```
 
-For deferred invocations is possible to define functions:
+You can define functions for deferred invocations:
 
 ```javascript
 {
@@ -189,10 +194,10 @@ For deferred invocations is possible to define functions:
 }
 ```
 
-#### patterns.cson
+### patterns.cson
 Type: `String`
 
-If an attribute `cson` is found in pattern definition it will be converted and then processed like [json attribute](#patternsjson).
+If a `cson` attribute is found in the pattern definition, it will be converted and then processed as [json](#patternsjson) attribute.
 
 ```javascript
 {
@@ -204,7 +209,7 @@ If an attribute `cson` is found in pattern definition it will be converted and t
 }
 ```
 
-For deferred invocations is possible to define functions:
+You can define functions for deferred invocations:
 
 ```javascript
 {
@@ -218,63 +223,63 @@ For deferred invocations is possible to define functions:
 }
 ```
 
-#### variables
+### variables
 Type: `Object`
 
-This is the old way to define patterns using plain object (simple variable lookup mechanism and no regexp support). You can still use this but for more control you should use the new `patterns` way.
+This is the old way of defining patterns using a simple plain object (simple variable lookup mechanism and no regexp support). You can still use this, but for more control you should use the new way of `patterns`.
 
 ```javascript
 {
   variables: {
-    'key': 'value' // replaces "@@key" to "value"
+    'key': 'value' // replaces "@@key" with "value"
   }
 }
 ```
 
-#### prefix
+### prefix
 Type: `String`
 Default: `@@`
 
-The prefix added for matching (prevent bad replacements / easy way).
+The prefix used for matching (avoid wrong replacements / easy way).
 
 > This only applies for simple variable lookup mechanism.
 
-#### usePrefix
+### usePrefix
 Type: `Boolean`
 Default: `true`
 
-If set to `false`, we match the pattern without `prefix` concatenation (useful when you want to lookup a simple string).
+If set to "false", the pattern is matched without the "prefix" concatenation (this is useful when you want to lookup a simple string).
 
 > This only applies for simple variable lookup mechanism.
 
-#### preservePrefix
+### preservePrefix
 Type: `Boolean`
 Default: `false`
 
-If set to `true`, we preserve the `prefix` in target.
+If set to "true", the "prefix" is preserved in the target.
 
 > This only applies for simple variable lookup mechanism and when `patterns.replacement` is a string.
 
-#### delimiter
+### delimiter
 Type: `String`
 Default: `.`
 
-The delimiter used to flatten when using object as replacement.
+The delimiter used to flatten when using an object as a replacement.
 
-#### preserveOrder
+### preserveOrder
 Type: `Boolean`
 Default: `false`
 
-If set to `true`, we preserve the patterns definition order, otherwise these will be sorted (in ascending order) to prevent replacement issues like `head` / `header` (typo regexps will be resolved at last).
+If set to "true", we preserve the order of definition of the patterns; otherwise the order will be ascending to avoid replacement problems such as "head" / "header" (regexp matches will be resolved at last).
 
-[payground]: http://outatime.github.io/applause.io/
+[playground]: http://outatime.github.io/applause.io/
 [String.replace]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
 [JSON.stringify]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
 [special replacement patterns]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter
 
-### Usage Examples
+## Usage Examples
 
-#### Basic
+### Basic
 
 File `src/manifest.appcache`:
 
@@ -300,7 +305,7 @@ var options = {
   patterns: [
     {
       match: 'timestamp',
-      replacement: new Date().getTime()
+      replacement: Date.now()
     }
   ]
 };
@@ -310,7 +315,7 @@ var result = applause.replace(contents);
 console.log(result.content); // replaced output
 ```
 
-#### Multiple matching
+### Multiple matching
 
 File `src/manifest.appcache`:
 
@@ -345,8 +350,8 @@ File `src/humans.txt`:
 /* SITE */
   Last update: @@timestamp
   Standards: HTML5, CSS3, robotstxt.org, humanstxt.org
-  Components: H5BP, Modernizr, jQuery, Twitter Bootstrap, LESS, Jade, Grunt
-  Software: Sublime Text 2, Photoshop, LiveReload
+  Components: H5BP, Modernizr, jQuery, Bootstrap, LESS, Jade, Grunt
+  Software: Sublime Text, Photoshop, LiveReload
 
 ```
 
@@ -364,7 +369,7 @@ var options = {
     },
     {
       match: 'timestamp',
-      replacement: new Date().getTime()
+      replacement: Date.now()
     }
   ]
 };
@@ -377,7 +382,7 @@ result = applause.replace(contents);
 console.log(result.content); // replaced output
 ```
 
-#### Cache busting
+### Cache busting
 
 File `src/index.html`:
 
@@ -397,7 +402,7 @@ var options = {
   patterns: [
     {
       match: 'timestamp',
-      replacement: new Date().getTime()
+      replacement: Date.now()
     }
   ]
 };
@@ -407,7 +412,7 @@ var result = applause.replace(contents);
 console.log(result.content); // replaced output
 ```
 
-#### Include file
+### Include file
 
 File `src/index.html`:
 
@@ -436,7 +441,7 @@ var result = applause.replace(contents);
 console.log(result.content); // replaced output
 ```
 
-#### Regular expression
+### Regular expression
 
 File `src/username.txt`:
 
@@ -453,7 +458,7 @@ var options = {
   patterns: [
     {
       match: /(\w+)\s(\w+)/,
-      replacement: '$2, $1' // replaces "John Smith" to "Smith, John"
+      replacement: '$2, $1' // replaces "John Smith" with "Smith, John"
     }
   ]
 };
@@ -463,7 +468,7 @@ var result = applause.replace(contents);
 console.log(result.content); // replaced output
 ```
 
-#### Lookup for `foo` instead of `@@foo`
+### Lookup for `foo` instead of `@@foo`
 
 Node:
 
@@ -503,26 +508,7 @@ var applause_op3 = Applause.create({
 });
 ```
 
-## Release History
+## Related
 
- * 2015-09-21   v1.2.2   Update VERSION to lower (version).
- * 2015-09-21   v1.2.1   Better support for browserify.
- * 2015-09-15   v1.2.0   Use detailed response for replaces with content, detail and count.
- * 2015-09-08   v1.1.0   Readme updated. Improvements in handling patterns. Fix plain object representation issue. More test cases.
- * 2015-08-11   v1.0.0   Version stabilization, Meteor integration and package.json update.
- * 2015-08-06   v0.4.3   Fix issue with special characters attributes ($$, $&, $`, $', $n or $nn) on JSON, YAML and CSON.
- * 2015-05-07   v0.4.1   Fix regression issue with empty string in replacement.
- * 2015-05-01   v0.4.0   New test cases, parse CSON using [@groupon](https://github.com/groupon/cson-parser), replace alias now supported, new detail flag and third party dependencies updated.
- * 2014-10-10   v0.3.4   Escape regexp when matching type is `String`.
- * 2014-06-10   v0.3.3   Remove node v.8.0 support and third party dependencies updated.
- * 2014-04-18   v0.3.2   JSON / YAML / CSON as function supported. Readme updated (thanks [@milanlandaverde](https://github.com/milanlandaverde)).
- * 2014-03-23   v0.3.1   Readme updated.
- * 2014-03-22   v0.3.0   Performance improvements. Expression flag removed. New pattern matching for CSON object. More test cases, readme updated and code cleanup.
- * 2014-03-21   v0.2.0   Project rename from `pattern-replace` to `applause` (thanks Lady Gaga). Test cases in Mocha and readme updated.
- * 2014-03-11   v0.1.2   New pattern matching for YAML object. New preserveOrder flag.
- * 2014-02-26   v0.1.1   Remove the force flag (only applies in grunt plugin).
- * 2014-02-25   v0.1.0   Initial version.
-
----
-
-Task submitted by [Ariel Falduto](http://outa.im/)
+- [js-yaml](https://github.com/nodeca/js-yaml) - YAML 1.2 parser and serialize
+- [cson-parser](https://github.com/groupon/cson-parser) - Safe parsing of CSON files
