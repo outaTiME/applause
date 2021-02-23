@@ -512,3 +512,7 @@ var applause_op3 = Applause.create({
 
 - [js-yaml](https://github.com/nodeca/js-yaml) - YAML 1.2 parser and serialize
 - [cson-parser](https://github.com/groupon/cson-parser) - Safe parsing of CSON files
+
+## License
+
+MIT © [outaTiME](https://outa.im)

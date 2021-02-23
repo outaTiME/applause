@@ -47,14 +47,14 @@
     "eslint-config-xo-space": "^0.27.0",
     "release-it": "*"
   },
+  "optionalDependencies": {
+    "cson-parser": "^4.0.8",
+    "js-yaml": "^4.0.0"
+  },
   "eslintConfig": {
     "extends": [
       "xo",
       "xo-space"
     ]
-  },
-  "optionalDependencies": {
-    "cson-parser": "^4.0.8",
-    "js-yaml": "^4.0.0"
   }
 }
