@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 [![Twitter: outa7iME](https://img.shields.io/twitter/follow/outa7iME.svg?style=social)](https://twitter.com/outa7iME)
 
-> Pattern replacer that helps creating human-friendly replacements.
+> Pattern replacer that helps to create human-friendly replacements.
 
 **Try the [playground], where you can test every single option of applause.**
 
