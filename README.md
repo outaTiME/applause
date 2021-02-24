@@ -14,12 +14,6 @@
 First make sure you have installed the latest version of [node.js](http://nodejs.org/)
 (You may need to restart your computer after this step).
 
-From NPM for use as a command line app:
-
-```shell
-npm install applause -g
-```
-
 From NPM for programmatic use:
 
 ```shell
@@ -74,7 +68,7 @@ If the match type is `String`, a simple variable search mechanism `@@string` is 
   patterns: [
     {
       match: 'foo',
-      replacement: 'bar'  // replaces "@@foo" with "bar"
+      replacement: 'bar'  // Replaces "@@foo" with "bar"
     }
   ]
 }
@@ -93,7 +87,7 @@ You can specify a function as a replacement. In this case, the function will be 
     {
       match: /foo/g,
       replacement: function () {
-        return 'bar'; // replaces "foo" with "bar"
+        return 'bar'; // Replaces "foo" with "bar"
       }
     }
   ]
@@ -107,7 +101,7 @@ Objects are also supported as replacement (a string representation of the object
   patterns: [
     {
       match: /foo/g,
-      replacement: [1, 2, 3] // replaces "foo" with string representation of the array
+      replacement: [1, 2, 3] // Replaces "foo" with string representation of the array
     }
   ]
 }
@@ -125,7 +119,7 @@ If a `json` attribute is found in the pattern definition, the object is flattene
   patterns: [
     {
       json: {
-        "key": "value" // replaces "@@key" with "value"
+        "key": "value" // Replaces "@@key" with "value"
       }
     }
   ]
@@ -139,9 +133,9 @@ Nested objects are also supported:
   patterns: [
     {
       json: {
-        "key": "value",   // replaces "@@key" with "value"
-        "inner": {        // replaces "@@inner" with string representation of the "inner" object
-          "key": "value"  // replaces "@@inner.key" with "value"
+        "key": "value",   // Replaces "@@key" with "value"
+        "inner": {        // Replaces "@@inner" with string representation of the "inner" object
+          "key": "value"  // Replaces "@@inner.key" with "value"
         }
       }
     }
@@ -174,7 +168,7 @@ If a `yaml` attribute is found in the pattern definition, it will be converted a
 {
   patterns: [
     {
-      yaml: 'key: value'  // replaces "@@key" with "value"
+      yaml: 'key: value'  // Replaces "@@key" with "value"
     }
   ]
 }
@@ -231,7 +225,7 @@ This is the old way of defining patterns using a simple plain object (simple var
 ```javascript
 {
   variables: {
-    'key': 'value' // replaces "@@key" with "value"
+    'key': 'value' // Replaces "@@key" with "value"
   }
 }
 ```
@@ -277,7 +271,7 @@ If set to "true", we preserve the order of definition of the patterns; otherwise
 [JSON.stringify]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
 [special replacement patterns]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter
 
-## Usage Examples
+## Examples
 
 ### Basic
 
@@ -298,7 +292,7 @@ NETWORK:
 
 Node:
 
-```js
+```javascript
 var fs = require('fs');
 var Applause = require('applause');
 var options = {
@@ -312,7 +306,7 @@ var options = {
 var applause = Applause.create(options);
 var contents = fs.readFileSync('./src/manifest.appcache', 'utf8');
 var result = applause.replace(contents);
-console.log(result.content); // replaced output
+console.log(result.content); // Replaced output
 ```
 
 ### Multiple matching
@@ -332,7 +326,6 @@ NETWORK:
 *
 ```
 
-
 File `src/humans.txt`:
 
 ```
@@ -342,7 +335,7 @@ File `src/humans.txt`:
 
 /* TEAM */
   Web Developer / Graphic Designer: Ariel Oscar Falduto
-  Site: http://www.outa.im
+  Site: https://www.outa.im
   Twitter: @outa7iME
   Contact: afalduto at gmail dot com
   From: Buenos Aires, Argentina
@@ -352,12 +345,11 @@ File `src/humans.txt`:
   Standards: HTML5, CSS3, robotstxt.org, humanstxt.org
   Components: H5BP, Modernizr, jQuery, Bootstrap, LESS, Jade, Grunt
   Software: Sublime Text, Photoshop, LiveReload
-
 ```
 
 Node:
 
-```js
+```javascript
 var fs = require('fs');
 var pkg = require('./package.json');
 var Applause = require('applause');
@@ -376,10 +368,10 @@ var options = {
 var applause = Applause.create(options);
 var contents = fs.readFileSync('./src/manifest.appcache', 'utf8');
 var result = applause.replace(contents);
-console.log(result.content); // replaced output
+console.log(result.content); // The replaced output
 contents = fs.readFileSync('./src/humans.txt', 'utf8');
 result = applause.replace(contents);
-console.log(result.content); // replaced output
+console.log(result.content); // The replaced output
 ```
 
 ### Cache busting
@@ -395,7 +387,7 @@ File `src/index.html`:
 
 Node:
 
-```js
+```javascript
 var fs = require('fs');
 var Applause = require('applause');
 var options = {
@@ -409,7 +401,7 @@ var options = {
 var applause = Applause.create(options);
 var contents = fs.readFileSync('./src/index.html', 'utf8');
 var result = applause.replace(contents);
-console.log(result.content); // replaced output
+console.log(result.content); // The replaced output
 ```
 
 ### Include file
@@ -424,7 +416,7 @@ File `src/index.html`:
 
 Node:
 
-```js
+```javascript
 var fs = require('fs');
 var Applause = require('applause');
 var options = {
@@ -438,7 +430,7 @@ var options = {
 var applause = Applause.create(options);
 var contents = fs.readFileSync('./src/index.html', 'utf8');
 var result = applause.replace(contents);
-console.log(result.content); // replaced output
+console.log(result.content); // The replaced output
 ```
 
 ### Regular expression
@@ -451,60 +443,62 @@ John Smith
 
 Node:
 
-```js
+```javascript
 var fs = require('fs');
 var Applause = require('applause');
 var options = {
   patterns: [
     {
       match: /(\w+)\s(\w+)/,
-      replacement: '$2, $1' // replaces "John Smith" with "Smith, John"
+      replacement: '$2, $1' // Replaces "John Smith" with "Smith, John"
     }
   ]
 };
 var applause = Applause.create(options);
 var contents = fs.readFileSync('./username.txt', 'utf8');
 var result = applause.replace(contents);
-console.log(result.content); // replaced output
+console.log(result.content); // The replaced output
 ```
 
 ### Lookup for `foo` instead of `@@foo`
 
 Node:
 
-```js
+```javascript
 var Applause = require('applause');
-
-// option 1 (explicitly using an regexp)
-var applause_op1 = Applause.create({
-  patterns: [
-    {
-      match: /foo/g,
-      replacement: 'bar'
-    }
-  ]
-});
-
-// option 2 (easy way)
-var applause_op2 = Applause.create({
-  patterns: [
-    {
-      match: 'foo',
-      replacement: 'bar'
-    }
-  ],
-  usePrefix: false
-});
-
-// option 3 (old way)
-var applause_op3 = Applause.create({
-  patterns: [
-    {
-      match: 'foo',
-      replacement: 'bar'
-    }
-  ],
-  prefix: '' // remove prefix
+var options = [
+  {
+    patterns: [
+      {
+        match: /foo/g, // Explicitly using a regexp
+        replacement: 'bar'
+      }
+    ]
+  },
+  {
+    patterns: [
+      {
+        match: 'foo',
+        replacement: 'bar'
+      }
+    ],
+    prefix: '' // Removing the prefix manually
+  },
+  {
+    patterns: [
+      {
+        match: 'foo',
+        replacement: 'bar'
+      }
+    ],
+    usePrefix: false // Using the option provided
+  }
+];
+options.forEach(function (option) {
+  var applause = Applause.create(option);
+  var contents = 'foo';
+  var result = applause.replace(contents);
+  console.log(result.content); // bar
 });
 ```
 
