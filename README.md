@@ -68,7 +68,7 @@ If the match type is `String`, a simple variable search mechanism `@@string` is 
   patterns: [
     {
       match: 'foo',
-      replacement: 'bar'  // Replaces "@@foo" with "bar"
+      replacement: 'bar' // Replaces "@@foo" with "bar"
     }
   ]
 }
@@ -168,7 +168,7 @@ If a `yaml` attribute is found in the pattern definition, it will be converted a
 {
   patterns: [
     {
-      yaml: 'key: value'  // Replaces "@@key" with "value"
+      yaml: 'key: value' // Replaces "@@key" with "value"
     }
   ]
 }
@@ -306,7 +306,7 @@ var options = {
 var applause = Applause.create(options);
 var contents = fs.readFileSync('./src/manifest.appcache', 'utf8');
 var result = applause.replace(contents);
-console.log(result.content); // Replaced output
+console.log(result.content); // The replaced output
 ```
 
 ### Multiple matching
