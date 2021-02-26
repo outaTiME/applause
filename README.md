@@ -35,6 +35,7 @@ Assuming installation via NPM, you can use `applause` in your application like t
 ```javascript
 var fs = require('fs');
 var Applause = require('applause');
+
 var options = {
   patterns: [
     {
@@ -119,7 +120,7 @@ If a `json` attribute is found in the pattern definition, the object is flattene
   patterns: [
     {
       json: {
-        "key": "value" // Replaces "@@key" with "value"
+        key: 'value' // Replaces "@@key" with "value"
       }
     }
   ]
@@ -133,9 +134,9 @@ Nested objects are also supported:
   patterns: [
     {
       json: {
-        "key": "value",   // Replaces "@@key" with "value"
-        "inner": {        // Replaces "@@inner" with string representation of the "inner" object
-          "key": "value"  // Replaces "@@inner.key" with "value"
+        key: 'value',  // Replaces "@@key" with "value"
+        inner: {       // Replaces "@@inner" with string representation of the "inner" object
+          key: 'value' // Replaces "@@inner.key" with "value"
         }
       }
     }
@@ -168,7 +169,7 @@ If a `yaml` attribute is found in the pattern definition, it will be converted a
 {
   patterns: [
     {
-      yaml: 'key: value' // Replaces "@@key" with "value"
+      yaml: 'key: "value"' // Replaces "@@key" with "value"
     }
   ]
 }
@@ -181,7 +182,7 @@ You can define functions for deferred invocations:
   patterns: [
     {
       yaml: function (done) {
-        done('key: value');
+        done('key: "value"');
       }
     }
   ]
@@ -197,7 +198,7 @@ If a `cson` attribute is found in the pattern definition, it will be converted a
 {
   patterns: [
     {
-      cson: 'key: \'value\''
+      cson: 'key: "value"'
     }
   ]
 }
@@ -210,7 +211,7 @@ You can define functions for deferred invocations:
   patterns: [
     {
       cson: function (done) {
-        done('key: \'value\'');
+        done('key: "value"');
       }
     }
   ]
@@ -295,6 +296,7 @@ Node:
 ```javascript
 var fs = require('fs');
 var Applause = require('applause');
+
 var options = {
   patterns: [
     {
@@ -353,6 +355,7 @@ Node:
 var fs = require('fs');
 var pkg = require('./package.json');
 var Applause = require('applause');
+
 var options = {
   patterns: [
     {
@@ -390,6 +393,7 @@ Node:
 ```javascript
 var fs = require('fs');
 var Applause = require('applause');
+
 var options = {
   patterns: [
     {
@@ -419,6 +423,7 @@ Node:
 ```javascript
 var fs = require('fs');
 var Applause = require('applause');
+
 var options = {
   patterns: [
     {
@@ -446,6 +451,7 @@ Node:
 ```javascript
 var fs = require('fs');
 var Applause = require('applause');
+
 var options = {
   patterns: [
     {
@@ -466,6 +472,7 @@ Node:
 
 ```javascript
 var Applause = require('applause');
+
 var options = [
   {
     patterns: [
