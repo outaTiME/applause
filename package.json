@@ -15,7 +15,7 @@
   },
   "scripts": {
     "test": "eslint . && ava",
-    "release": "standard-version"
+    "release": "release-it"
   },
   "files": [
     "index.js",
@@ -43,13 +43,14 @@
   "devDependencies": {
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^12.1.1",
+    "@release-it/conventional-changelog": "^2.0.1",
     "ava": "^3.15.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.20.0",
     "eslint-config-xo": "^0.35.0",
     "eslint-config-xo-space": "^0.27.0",
     "husky": "^6.0.0",
-    "standard-version": "^9.2.0"
+    "release-it": "^14.6.1"
   },
   "optionalDependencies": {
     "cson-parser": "^4.0.8",
@@ -69,6 +70,14 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release v${version}"
+    },
+    "github": {
+      "release": true
     }
   }
 }
