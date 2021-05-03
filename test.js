@@ -292,6 +292,21 @@ test('should not match any pattern definition', function (t) {
   t.is(result.content, false);
 });
 
+test('should ignore non-string data types', function (t) {
+  var applause = Applause.create({
+    patterns: [
+      {
+        match: 'key',
+        replacement: 'value'
+      }
+    ]
+  });
+  var booleanResult = applause.replace(true);
+  t.is(booleanResult.content, false);
+  var numberResult = applause.replace(404);
+  t.is(numberResult.content, false);
+});
+
 test('should replace patterns using plain objects', function (t) {
   var applause = Applause.create({
     variables: {
