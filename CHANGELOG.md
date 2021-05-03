@@ -1,5 +1,14 @@
 # Changelog
 
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### 2.0.2 (2021-05-03)
+
+
+### Bug Fixes
+
+* add type check before accesing String.replace ([93edf8e](https://github.com/outaTiME/applause/commit/93edf8ee3b0a36ab97797eb82061ecfd09ba97b3))
+
 ## 2.0.1 — 2021-02-28
 
 _This version does not introduce any user-facing changes._
