@@ -15,7 +15,8 @@
   },
   "scripts": {
     "test": "eslint . && ava",
-    "release": "release-it"
+    "release": "release-it",
+    "prepare": "husky install"
   },
   "files": [
     "index.js",
@@ -62,11 +63,6 @@
       "xo-space"
     ]
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
@@ -74,7 +70,9 @@
   },
   "release-it": {
     "hooks": {
-      "after:init": ["npm test"]
+      "after:init": [
+        "npm test"
+      ]
     },
     "git": {
       "commitMessage": "chore: release v${version}"
