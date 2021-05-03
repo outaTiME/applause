@@ -156,7 +156,7 @@ Applause.prototype.replace = function (content, process) {
     }
 
     // Replace logic
-    var count = (content.match(match) || []).length;
+    var count = (typeof content === 'string' && content.match(match) || []).length;
     if (count > 0) {
       // Update content
       content = content.replace(match, replacement);
