@@ -73,6 +73,9 @@
     }
   },
   "release-it": {
+    "hooks": {
+      "after:init": ["npm test"]
+    },
     "git": {
       "commitMessage": "chore: release v${version}"
     },

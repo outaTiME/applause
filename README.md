@@ -1,8 +1,9 @@
 # Applause 👏
-[![Build Status](https://img.shields.io/travis/outaTiME/applause.svg)](https://travis-ci.org/outaTiME/applause)
+[![Build Status](https://img.shields.io/github/workflow/status/outaTiME/applause/CI)](https://github.com/outaTiME/applause/actions/workflows/main.yml)
 [![Version](https://img.shields.io/npm/v/applause.svg)](https://www.npmjs.com/package/applause)
 ![Prerequisite](https://img.shields.io/badge/node-%3E%3D10-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Twitter: outa7iME](https://img.shields.io/twitter/follow/outa7iME.svg?style=social)](https://twitter.com/outa7iME)
 
 > Pattern replacer that helps to create human-friendly replacements.
