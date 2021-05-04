@@ -1,4 +1,5 @@
 # Applause 👏
+
 [![Build Status](https://img.shields.io/github/workflow/status/outaTiME/applause/CI)](https://github.com/outaTiME/applause/actions/workflows/main.yml)
 [![Version](https://img.shields.io/npm/v/applause.svg)](https://www.npmjs.com/package/applause)
 ![Prerequisite](https://img.shields.io/badge/node-%3E%3D10-blue.svg)
